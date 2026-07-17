@@ -59,49 +59,47 @@ export function OrderStatusLookup({ orderId }: { orderId: string }) {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-md flex-col gap-4 rounded-2xl border border-black/5 bg-white p-6 dark:border-white/10 dark:bg-[#2a1c16]">
-      <h1 className="text-lg font-bold text-black dark:text-zinc-50">
-        Check your order status
-      </h1>
-      <label className="flex flex-col gap-1 text-sm text-black dark:text-zinc-50">
+    <div className="mx-auto flex w-full max-w-md flex-col gap-4 rounded-2xl border border-black/5 bg-white p-6">
+      <h1 className="text-lg font-bold text-[#2C2114]">Check your order status</h1>
+      <label className="flex flex-col gap-1 text-sm text-[#2C2114]">
         Phone number used at checkout
         <input
           type="tel"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
-          className="rounded-full border border-zinc-300 px-4 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-full border border-zinc-300 px-4 py-2"
         />
       </label>
       <button
         type="button"
         onClick={handleLookup}
         disabled={contact.trim().length === 0 || loading}
-        className="rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
+        className="rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
       >
         {loading ? "Checking…" : "Check status"}
       </button>
 
-      {error && <p className="text-sm text-brand-red dark:text-red-400">{error}</p>}
+      {error && <p className="text-sm text-brand-red">{error}</p>}
 
       {status && (
-        <div className="rounded-xl bg-brand-amber-soft p-4 text-sm dark:bg-[#3a2717]">
-          <p className="text-black dark:text-zinc-50">
+        <div className="rounded-xl bg-brand-amber-soft p-4 text-sm text-brand-amber-text">
+          <p>
             <strong>Order status:</strong>{" "}
             {STATUS_LABEL[status.status] ?? status.status}
           </p>
-          <p className="mt-1 text-black dark:text-zinc-50">
+          <p className="mt-1">
             <strong>Payment:</strong>{" "}
             {PAYMENT_LABEL[status.payment_status] ?? status.payment_status}
           </p>
-          <p className="mt-1 tabular-nums text-black dark:text-zinc-50">
+          <p className="mt-1 tabular-nums">
             <strong>Total:</strong> {formatMoney(status.grand_total)}
           </p>
           {status.substitution_used && (
-            <p className="mt-1 text-zinc-600 dark:text-zinc-400">
+            <p className="mt-1 opacity-80">
               A substitution was used from your backup plate for this order.
             </p>
           )}
-          <p className="mt-2 text-xs text-zinc-500">
+          <p className="mt-2 text-xs opacity-70">
             Once a courier is assigned, we&apos;ll send their phone number via
             WhatsApp so you can coordinate delivery directly.
           </p>

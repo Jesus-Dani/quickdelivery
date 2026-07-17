@@ -10,7 +10,7 @@ function LineList({ title, lines }: { title: string; lines: OrderDetail["primary
   return (
     <div>
       <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{title}</p>
-      <ul className="text-sm text-black dark:text-zinc-50">
+      <ul className="text-sm text-black">
         {lines.map((line, i) => (
           <li key={i} className="tabular-nums">
             {line.spoonCount}× {line.menuItemName} — {formatMoney(line.lineTotal)}
@@ -54,11 +54,11 @@ export function OrderPoolCard({
   }
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-5">
       <div className="flex items-start justify-between">
         <div>
-          <p className="font-medium text-black dark:text-zinc-50">{order.cafeteriaName}</p>
-          <p className="tabular-nums text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="font-medium text-black">{order.cafeteriaName}</p>
+          <p className="tabular-nums text-sm text-zinc-600">
             Deliver to {order.destinationName} · {formatMoney(order.grandTotal)}
           </p>
           <p className="text-xs text-zinc-500">
@@ -73,12 +73,12 @@ export function OrderPoolCard({
       </div>
 
       {order.substitutionUsed && (
-        <p className="text-sm text-amber-700 dark:text-amber-400">
+        <p className="text-sm text-brand-amber-text">
           Substitution used{order.substitutionNote ? `: ${order.substitutionNote}` : ""}
         </p>
       )}
 
-      {error && <p className="text-sm text-brand-red dark:text-red-400">{error}</p>}
+      {error && <p className="text-sm text-brand-red">{error}</p>}
 
       {role === "courier" && order.status === "unclaimed" && (
         <button
@@ -87,15 +87,15 @@ export function OrderPoolCard({
           onClick={() =>
             run(() => supabase.rpc("claim_order", { p_order_id: order.id }))
           }
-          className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
+          className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
         >
           Claim order
         </button>
       )}
 
       {role === "courier" && isMine && order.status === "claimed" && (
-        <div className="flex flex-col gap-2 border-t border-zinc-200 pt-3 dark:border-zinc-800">
-          <label className="flex items-center gap-2 text-sm text-black dark:text-zinc-50">
+        <div className="flex flex-col gap-2 border-t border-zinc-200 pt-3">
+          <label className="flex items-center gap-2 text-sm text-black">
             <input
               type="checkbox"
               checked={substitutionUsed}
@@ -109,7 +109,7 @@ export function OrderPoolCard({
               placeholder="Optional note"
               value={substitutionNote}
               onChange={(e) => setSubstitutionNote(e.target.value)}
-              className="rounded-full border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+              className="rounded-full border border-zinc-300 px-4 py-2 text-sm"
             />
           )}
           <button
@@ -124,7 +124,7 @@ export function OrderPoolCard({
                 })
               )
             }
-            className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
+            className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
           >
             Mark purchased
           </button>
@@ -138,7 +138,7 @@ export function OrderPoolCard({
           onClick={() =>
             run(() => supabase.rpc("mark_order_delivered", { p_order_id: order.id }))
           }
-          className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
+          className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
         >
           Mark delivered
         </button>

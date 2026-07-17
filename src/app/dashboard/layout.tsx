@@ -30,10 +30,10 @@ export default async function DashboardLayout({
       : [{ href: "/dashboard/pool", label: "Order pool" }];
 
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-zinc-50 dark:bg-zinc-950">
-      <header className="flex flex-col gap-2 border-b border-zinc-200 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="flex min-h-full flex-1 flex-col bg-zinc-50">
+      <header className="flex flex-col gap-2 border-b border-zinc-200 bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div className="flex items-center justify-between gap-4">
-          <span className="shrink-0 text-sm font-bold text-brand-red dark:text-brand-red-bright">
+          <span className="shrink-0 text-sm font-bold text-brand-red">
             {profile.name || (profile.role === "operator" ? "Operator" : "Courier")}
           </span>
           <div className="sm:hidden">
@@ -45,7 +45,7 @@ export default async function DashboardLayout({
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-zinc-600 hover:text-black dark:text-zinc-400 dark:hover:text-zinc-50"
+              className="text-sm text-zinc-600 hover:text-black"
             >
               {link.label}
             </Link>
@@ -55,7 +55,7 @@ export default async function DashboardLayout({
           <SignOutButton />
         </div>
       </header>
-      <main className="flex-1 p-4">{children}</main>
+      <main className="flex-1 p-4 sm:p-6">{children}</main>
     </div>
   );
 }

@@ -51,10 +51,10 @@ export function NewCafeteriaFlow({ destinations }: { destinations: Destination[]
   if (cafeteriaId) {
     return (
       <div className="mx-auto flex max-w-2xl flex-col gap-4">
-        <Link href="/dashboard/cms" className="text-sm text-brand-red underline dark:text-brand-red-bright">
+        <Link href="/dashboard/cms" className="text-sm text-brand-red underline">
           ← Back to CMS
         </Link>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="text-sm text-zinc-600">
           {name} created. Add its items and delivery fees below.
         </p>
         <CafeteriaManager
@@ -71,23 +71,23 @@ export function NewCafeteriaFlow({ destinations }: { destinations: Destination[]
   }
 
   return (
-    <div className="mx-auto flex max-w-md flex-col gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-      <h1 className="text-lg font-bold text-black dark:text-zinc-50">Add cafeteria</h1>
+    <div className="mx-auto flex max-w-md flex-col gap-4 rounded-2xl border border-zinc-200 bg-white p-6">
+      <h1 className="text-lg font-bold text-black">Add cafeteria</h1>
       <div className="flex items-center gap-4">
         <PhotoUpload currentUrl={photoUrl} onUploaded={setPhotoUrl} />
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Cafeteria name"
-          className="flex-1 rounded-full border border-zinc-300 px-4 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="flex-1 rounded-full border border-zinc-300 px-4 py-2"
         />
       </div>
-      {error && <p className="text-sm text-brand-red dark:text-red-400">{error}</p>}
+      {error && <p className="text-sm text-brand-red">{error}</p>}
       <button
         type="button"
         disabled={creating}
         onClick={handleCreate}
-        className="self-start rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
+        className="self-start rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
       >
         {creating ? "Creating…" : "Create cafeteria & add items"}
       </button>

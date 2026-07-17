@@ -34,16 +34,12 @@ export default async function PaymentsQueuePage() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-4">
-      <h1 className="text-lg font-bold text-black dark:text-zinc-50">
-        Payment confirmation queue
-      </h1>
+      <h1 className="text-lg font-bold text-black">Payment confirmation queue</h1>
 
-      {error && (
-        <p className="text-brand-red dark:text-red-400">Couldn&apos;t load the queue.</p>
-      )}
+      {error && <p className="text-brand-red">Couldn&apos;t load the queue.</p>}
 
       {!error && ordersWithProofUrls.length === 0 && (
-        <p className="text-zinc-600 dark:text-zinc-400">No payments waiting on confirmation.</p>
+        <p className="text-zinc-600">No payments waiting on confirmation.</p>
       )}
 
       {ordersWithProofUrls.map((order) => (

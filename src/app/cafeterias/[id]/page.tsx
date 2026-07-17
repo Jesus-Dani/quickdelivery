@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { OrderBuilder } from "@/components/order/order-builder";
+import { Container } from "@/components/layout/container";
 
 export default async function CafeteriaOrderPage({
   params,
@@ -55,21 +56,25 @@ export default async function CafeteriaOrderPage({
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <div className="flex flex-1 flex-col bg-cream dark:bg-cream-dark">
-      <header className="bg-brand-red px-6 py-6">
-        <h1 className="text-2xl font-bold text-white">{cafeteria.name}</h1>
-        {cafeteria.description && (
-          <p className="mt-1 text-sm text-red-100">{cafeteria.description}</p>
-        )}
+    <div className="flex flex-1 flex-col bg-cream">
+      <header className="bg-brand-red py-9">
+        <Container>
+          <h1 className="text-2xl font-bold text-white">{cafeteria.name}</h1>
+          {cafeteria.description && (
+            <p className="mt-1 text-sm text-brand-red-tint">{cafeteria.description}</p>
+          )}
+        </Container>
       </header>
 
-      <main className="flex-1 px-4 py-6 sm:px-6">
-        <OrderBuilder
-          cafeteriaId={cafeteria.id}
-          menuItems={menuItems ?? []}
-          destinations={destinations}
-          bankTransferDetails={bankSetting?.value ?? null}
-        />
+      <main className="flex-1 py-12">
+        <Container className="max-w-2xl">
+          <OrderBuilder
+            cafeteriaId={cafeteria.id}
+            menuItems={menuItems ?? []}
+            destinations={destinations}
+            bankTransferDetails={bankSetting?.value ?? null}
+          />
+        </Container>
       </main>
     </div>
   );

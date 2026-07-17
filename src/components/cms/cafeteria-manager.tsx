@@ -137,7 +137,7 @@ export function CafeteriaManager({
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-8">
-      <section className="flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <section className="flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-5">
         <PhotoUpload
           currentUrl={photoUrl}
           onUploaded={(url) => {
@@ -150,10 +150,10 @@ export function CafeteriaManager({
             value={name}
             onChange={(e) => setName(e.target.value)}
             onBlur={() => name.trim() && name !== initialName && updateCafeteria({ name: name.trim() })}
-            className="rounded-full border border-zinc-300 px-4 py-2 text-lg font-medium dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-full border border-zinc-300 px-4 py-2 text-lg font-medium"
             placeholder="Cafeteria name"
           />
-          <label className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+          <label className="flex items-center gap-2 text-sm text-zinc-600">
             <input
               type="checkbox"
               checked={active}
@@ -167,10 +167,10 @@ export function CafeteriaManager({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="mb-3 font-bold text-black dark:text-zinc-50">Menu items</h2>
+      <section className="rounded-2xl border border-zinc-200 bg-white p-5">
+        <h2 className="mb-3 font-bold text-black">Menu items</h2>
 
-        <div className="flex flex-col divide-y divide-zinc-200 dark:divide-zinc-800">
+        <div className="flex flex-col divide-y divide-zinc-200">
           {items.map((item) => (
             <div key={item.id} className="flex items-center gap-3 py-3">
               <PhotoUpload
@@ -183,7 +183,7 @@ export function CafeteriaManager({
                   const value = e.target.value.trim();
                   if (value && value !== item.name) updateItem(item.id, { name: value });
                 }}
-                className="flex-1 rounded-full border border-zinc-300 px-3 py-1.5 dark:border-zinc-700 dark:bg-zinc-900"
+                className="flex-1 rounded-full border border-zinc-300 px-3 py-1.5"
               />
               <input
                 type="number"
@@ -195,7 +195,7 @@ export function CafeteriaManager({
                   if (value > 0 && value !== item.price_per_spoon)
                     updateItem(item.id, { price_per_spoon: value });
                 }}
-                className="w-24 rounded-full border border-zinc-300 px-3 py-1.5 dark:border-zinc-700 dark:bg-zinc-900"
+                className="w-24 rounded-full border border-zinc-300 px-3 py-1.5"
               />
               <label className="flex items-center gap-1 text-xs text-zinc-500">
                 <input
@@ -209,13 +209,13 @@ export function CafeteriaManager({
           ))}
         </div>
 
-        <div className="mt-3 flex items-center gap-3 border-t border-zinc-200 pt-3 dark:border-zinc-800">
+        <div className="mt-3 flex items-center gap-3 border-t border-zinc-200 pt-3">
           <PhotoUpload currentUrl={newItemPhoto} onUploaded={setNewItemPhoto} label="new item" />
           <input
             value={newItemName}
             onChange={(e) => setNewItemName(e.target.value)}
             placeholder="Item name"
-            className="flex-1 rounded-full border border-zinc-300 px-3 py-1.5 dark:border-zinc-700 dark:bg-zinc-900"
+            className="flex-1 rounded-full border border-zinc-300 px-3 py-1.5"
           />
           <input
             type="number"
@@ -224,31 +224,29 @@ export function CafeteriaManager({
             value={newItemPrice}
             onChange={(e) => setNewItemPrice(e.target.value)}
             placeholder="Price/spoon"
-            className="w-28 rounded-full border border-zinc-300 px-3 py-1.5 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-28 rounded-full border border-zinc-300 px-3 py-1.5"
           />
           <button
             type="button"
             disabled={addingItem}
             onClick={handleAddItem}
-            className="rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
+            className="rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
           >
             Add item
           </button>
         </div>
-        {addItemError && (
-          <p className="mt-2 text-sm text-brand-red dark:text-red-400">{addItemError}</p>
-        )}
+        {addItemError && <p className="mt-2 text-sm text-brand-red">{addItemError}</p>}
       </section>
 
-      <section className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="mb-1 font-bold text-black dark:text-zinc-50">Delivery fees</h2>
-        <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
+      <section className="rounded-2xl border border-zinc-200 bg-white p-5">
+        <h2 className="mb-1 font-bold text-black">Delivery fees</h2>
+        <p className="mb-3 text-sm text-zinc-600">
           Leave a destination blank if this cafeteria doesn&apos;t deliver there.
         </p>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {destinations.map((d) => (
             <label key={d.id} className="flex items-center justify-between gap-2 text-sm">
-              <span className="text-black dark:text-zinc-50">{d.name}</span>
+              <span className="text-black">{d.name}</span>
               <input
                 type="number"
                 min={0}
@@ -257,7 +255,7 @@ export function CafeteriaManager({
                 onChange={(e) =>
                   setFeeInputs((prev) => ({ ...prev, [d.id]: e.target.value }))
                 }
-                className="w-24 rounded-full border border-zinc-300 px-3 py-1.5 dark:border-zinc-700 dark:bg-zinc-900"
+                className="w-24 rounded-full border border-zinc-300 px-3 py-1.5"
               />
             </label>
           ))}
@@ -266,12 +264,12 @@ export function CafeteriaManager({
           type="button"
           disabled={savingFees}
           onClick={handleSaveFees}
-          className="mt-3 rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
+          className="mt-3 rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
         >
           Save fees
         </button>
-        {feeSaved && <p className="mt-2 text-sm text-success dark:text-green-400">Saved.</p>}
-        {feeError && <p className="mt-2 text-sm text-brand-red dark:text-red-400">{feeError}</p>}
+        {feeSaved && <p className="mt-2 text-sm text-success">Saved.</p>}
+        {feeError && <p className="mt-2 text-sm text-brand-red">{feeError}</p>}
       </section>
     </div>
   );

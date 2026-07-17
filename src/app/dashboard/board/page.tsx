@@ -40,9 +40,9 @@ export default async function DispatchBoardPage() {
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
-      <h1 className="text-lg font-bold text-black dark:text-zinc-50">Dispatch board</h1>
+      <h1 className="text-lg font-bold text-black">Dispatch board</h1>
 
-      {error && <p className="text-brand-red dark:text-red-400">Couldn&apos;t load orders.</p>}
+      {error && <p className="text-brand-red">Couldn&apos;t load orders.</p>}
 
       {grouped.map((group) => (
         <section key={group.status}>
@@ -56,18 +56,18 @@ export default async function DispatchBoardPage() {
               return (
                 <div
                   key={order.id}
-                  className="flex flex-col gap-2 rounded-2xl border border-zinc-200 bg-white p-3 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800 dark:bg-zinc-900"
+                  className="flex flex-col gap-2 rounded-2xl border border-zinc-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="text-sm">
-                    <p className="font-medium text-black dark:text-zinc-50">
+                    <p className="font-medium text-black">
                       {order.cafeteriaName} → {order.destinationName}
                     </p>
-                    <p className="tabular-nums text-zinc-600 dark:text-zinc-400">
+                    <p className="tabular-nums text-zinc-600">
                       {order.customerContact} · {formatMoney(order.grandTotal)} · payment:{" "}
                       {order.paymentStatus}
                     </p>
                     {courier && (
-                      <p className="text-zinc-600 dark:text-zinc-400">
+                      <p className="text-zinc-600">
                         Courier: {courier.name} ({courier.phone})
                         {fundedAt ? " · funded" : " · not funded"}
                       </p>

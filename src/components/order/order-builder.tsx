@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { IconCamera, IconCheck } from "@tabler/icons-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatMoney } from "@/lib/format";
 import { PlateSection, type MenuItemOption } from "./plate-section";
@@ -137,22 +138,20 @@ export function OrderBuilder({
 
   if (proofSubmitted && orderId) {
     return (
-      <div className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-2xl border border-black/5 bg-white p-6 text-center dark:border-white/10 dark:bg-[#2a1c16]">
-        <div className="animate-pop-in flex h-14 w-14 items-center justify-center rounded-full bg-success-soft text-3xl text-success dark:bg-success/20">
-          ✓
+      <div className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-2xl border border-black/5 bg-white p-6 text-center">
+        <div className="animate-pop-in flex h-14 w-14 items-center justify-center rounded-full bg-success-soft text-success">
+          <IconCheck size={28} stroke={2} />
         </div>
-        <h2 className="text-lg font-bold text-black dark:text-zinc-50">
-          Payment proof received
-        </h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          We&apos;ll confirm your payment and send a WhatsApp message to{" "}
-          {customerContact}. If no courier claims your order right away,
+        <h2 className="text-lg font-bold text-[#2C2114]">Payment proof received</h2>
+        <p className="text-sm text-[#2C2114]/70">
+          We&apos;ll confirm your payment and message you on WhatsApp once
+          it&apos;s confirmed. If no courier claims your order right away,
           we&apos;ll follow up to let you know to expect a short wait.
         </p>
         <button
           type="button"
           onClick={() => router.push(`/orders/${orderId}`)}
-          className="mt-2 rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white dark:bg-brand-red-bright"
+          className="mt-2 rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white"
         >
           View order status
         </button>
@@ -162,36 +161,34 @@ export function OrderBuilder({
 
   if (orderId) {
     return (
-      <div className="mx-auto flex max-w-md flex-col gap-4 rounded-2xl border border-black/5 bg-white p-6 dark:border-white/10 dark:bg-[#2a1c16]">
-        <div className="animate-pop-in flex h-12 w-12 items-center justify-center rounded-full bg-success-soft text-2xl text-success dark:bg-success/20">
-          ✓
+      <div className="mx-auto flex max-w-md flex-col gap-4 rounded-2xl border border-black/5 bg-white p-6">
+        <div className="animate-pop-in flex h-12 w-12 items-center justify-center rounded-full bg-success-soft text-success">
+          <IconCheck size={24} stroke={2} />
         </div>
-        <h2 className="text-lg font-bold text-black dark:text-zinc-50">
-          Pay by bank transfer
-        </h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <h2 className="text-lg font-bold text-[#2C2114]">Pay by bank transfer</h2>
+        <p className="text-sm text-[#2C2114]/70">
           Transfer{" "}
           <strong className="tabular-nums">{formatMoney(grandTotal)}</strong>{" "}
           using the account details below, then upload your proof of payment.
         </p>
 
         {bankTransferDetails ? (
-          <pre className="whitespace-pre-wrap rounded-xl bg-brand-amber-soft p-3 text-sm text-black dark:bg-[#3a2717] dark:text-zinc-50">
+          <pre className="whitespace-pre-wrap rounded-xl bg-brand-amber-soft p-4 text-sm text-brand-amber-text">
             {bankTransferDetails}
           </pre>
         ) : (
-          <p className="rounded-xl bg-brand-amber-soft p-3 text-sm text-amber-900 dark:bg-[#3a2717] dark:text-amber-200">
+          <p className="rounded-xl bg-brand-amber-soft p-4 text-sm text-brand-amber-text">
             Bank transfer details haven&apos;t been configured yet. Contact
             the operator directly to complete payment for order {orderId}.
           </p>
         )}
 
-        <label className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-dashed border-brand-red/30 bg-cream px-4 py-6 text-center text-sm text-zinc-700 transition hover:border-brand-red/60 dark:border-brand-red-bright/30 dark:bg-[#3a2717] dark:text-zinc-300">
-          <span className="text-2xl">📷</span>
-          <span className="font-medium text-black dark:text-zinc-50">
-            {proofFile ? proofFile.name : "Upload a screenshot or photo of your payment"}
+        <label className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-dashed border-brand-red/30 bg-cream px-4 py-6 text-center text-sm text-[#2C2114]/80 transition hover:border-brand-red/60">
+          <IconCamera size={28} stroke={1.5} className="text-brand-red" />
+          <span className="font-medium text-[#2C2114]">
+            {proofFile ? proofFile.name : "Upload your payment screenshot"}
           </span>
-          <span className="text-xs text-zinc-500">Tap to choose a file, under 5MB</span>
+          <span className="text-xs text-[#2C2114]/50">Tap to choose a file, under 5MB</span>
           <input
             type="file"
             accept="image/*"
@@ -200,15 +197,13 @@ export function OrderBuilder({
           />
         </label>
 
-        {uploadError && (
-          <p className="text-sm text-brand-red dark:text-red-400">{uploadError}</p>
-        )}
+        {uploadError && <p className="text-sm text-brand-red">{uploadError}</p>}
 
         <button
           type="button"
           onClick={handleUploadProof}
           disabled={!proofFile || uploading}
-          className="rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
+          className="rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
         >
           {uploading ? "Uploading…" : "Submit proof of payment"}
         </button>
@@ -217,7 +212,12 @@ export function OrderBuilder({
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6 pb-32">
+    <div className="flex flex-col gap-6 pb-32">
+      <p className="rounded-xl bg-brand-amber-soft p-4 text-sm text-brand-amber-text">
+        Pick a backup too — just in case your first choice runs out. We&apos;ll
+        only use it if we have to, and it&apos;ll never cost you more.
+      </p>
+
       <PlateSection
         title="Your plate"
         description="Choose your items and how many spoons of each."
@@ -249,15 +249,13 @@ export function OrderBuilder({
       <div
         className={`flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-medium transition-colors duration-200 ${
           matches
-            ? "border-success/30 bg-success-soft text-success dark:border-success/40 dark:bg-success/15 dark:text-green-300"
-            : "border-brand-amber/30 bg-brand-amber-soft text-amber-900 dark:border-brand-amber/40 dark:bg-[#3a2717] dark:text-amber-200"
+            ? "border-success/30 bg-success-soft text-success"
+            : "border-brand-amber/30 bg-brand-amber-soft text-brand-amber-text"
         }`}
       >
         {matches ? (
           <>
-            <span key="matched-icon" className="animate-pop-in text-base">
-              ✓
-            </span>
+            <IconCheck key="matched-icon" size={18} stroke={2.5} className="animate-pop-in" />
             <span>
               Backup matches your order:{" "}
               <span className="tabular-nums">{formatMoney(primaryTotal)}</span>
@@ -266,7 +264,7 @@ export function OrderBuilder({
         ) : hasPrimaryItems ? (
           <span className="tabular-nums">
             {diff > 0
-              ? `${formatMoney(diff)} more needed on your backup plate`
+              ? `${formatMoney(diff)} more needed to match your order`
               : `${formatMoney(-diff)} too much on your backup plate — remove some items`}
           </span>
         ) : (
@@ -274,14 +272,12 @@ export function OrderBuilder({
         )}
       </div>
 
-      <section className="rounded-2xl border border-black/5 bg-white p-4 dark:border-white/10 dark:bg-[#2a1c16]">
-        <h2 className="font-bold text-black dark:text-zinc-50">
-          Delivery destination
-        </h2>
+      <section className="rounded-2xl border border-black/5 bg-white p-5">
+        <h2 className="font-bold text-[#2C2114]">Delivery destination</h2>
         <select
           value={destinationId}
           onChange={(e) => setDestinationId(e.target.value)}
-          className="mt-3 w-full rounded-full border border-zinc-300 bg-white px-4 py-2 text-black dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50"
+          className="mt-3 w-full rounded-full border border-zinc-300 bg-white px-4 py-2 text-[#2C2114]"
         >
           <option value="">Select a destination…</option>
           {destinations.map((d) => (
@@ -291,47 +287,45 @@ export function OrderBuilder({
           ))}
         </select>
         {destinations.length === 0 && (
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            No delivery destinations are configured for this cafeteria yet.
+          <p className="mt-2 text-sm text-[#2C2114]/60">
+            Not currently deliverable from this cafeteria.
           </p>
         )}
       </section>
 
-      <section className="rounded-2xl border border-black/5 bg-white p-4 dark:border-white/10 dark:bg-[#2a1c16]">
-        <label className="flex flex-col gap-1 text-sm text-black dark:text-zinc-50">
+      <section className="rounded-2xl border border-black/5 bg-white p-5">
+        <label className="flex flex-col gap-1 text-sm text-[#2C2114]">
           Your phone number
           <input
             type="tel"
             value={customerContact}
             onChange={(e) => setCustomerContact(e.target.value)}
             placeholder="e.g. 080XXXXXXXX"
-            className="rounded-full border border-zinc-300 px-4 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-full border border-zinc-300 px-4 py-2"
           />
         </label>
-        <p className="mt-1 text-xs text-zinc-500">
+        <p className="mt-1 text-xs text-[#2C2114]/50">
           Used to send your WhatsApp confirmation and to look up your order status.
         </p>
       </section>
 
-      <div className="fixed inset-x-0 bottom-0 border-t border-black/5 bg-cream/95 p-4 backdrop-blur dark:border-white/10 dark:bg-cream-dark/95">
+      <div className="fixed inset-x-0 bottom-0 border-t border-black/5 bg-cream/95 p-4 backdrop-blur">
         <div className="mx-auto flex max-w-2xl items-center justify-between gap-4">
-          <div className="text-sm text-black dark:text-zinc-50">
-            <p className="text-zinc-600 dark:text-zinc-400">Total</p>
+          <div className="text-sm text-[#2C2114]">
+            <p className="text-[#2C2114]/60">Total</p>
             <p className="text-lg font-bold tabular-nums">{formatMoney(grandTotal)}</p>
           </div>
           <button
             type="button"
             onClick={handlePlaceOrder}
             disabled={!canSubmit}
-            className="rounded-full bg-brand-red px-6 py-3 text-sm font-medium text-white shadow-sm disabled:opacity-40 dark:bg-brand-red-bright"
+            className="rounded-full bg-brand-red px-6 py-3 text-sm font-medium text-white shadow-sm disabled:opacity-40"
           >
             {submitting ? "Placing order…" : "Place order"}
           </button>
         </div>
         {submitError && (
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-brand-red dark:text-red-400">
-            {submitError}
-          </p>
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-brand-red">{submitError}</p>
         )}
       </div>
     </div>

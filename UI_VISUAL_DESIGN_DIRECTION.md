@@ -40,7 +40,19 @@ Do not leave this to the framework default — a default Next.js project ships w
 - **Badges and status pills**: fully rounded, colored by meaning — red for primary/featured, amber for secondary/attention, green reserved for success only.
 - **Photo slots**: every cafeteria card and every menu item gets a fixed-aspect, rounded photo slot for real food photography uploaded via the CMS — this is central to the feel, not an afterthought bolted on later.
 
-## 5. Per-screen guidance
+## 5. Layout and spacing system
+
+This is what actually makes a page feel organized rather than sparse or ad hoc — treat these as concrete rules, not loose suggestions. Most "doesn't look nice/organized" complaints trace back to a missing spacing system before they trace back to color.
+
+- **Spacing scale**: use a consistent base-8 scale (8, 16, 24, 32, 48, 64px) for every margin, padding, and gap in the app. No arbitrary one-off values.
+- **Page container**: max-width around 1200px, centered on the page, with horizontal padding of 24px on mobile and 48–64px on desktop. Content should never span the full edge-to-edge width of a wide viewport.
+- **Header**: consistent vertical padding (32–40px), and its content aligned to the same max-width container as the page body below it — not full-bleed with cramped internal alignment.
+- **Cafeteria grid**: a real responsive grid, not a single stretched column — 1 column on mobile, 2 on tablet, 3–4 on desktop, with a consistent 24px gap between cards. A single cafeteria card should never float alone in an otherwise empty viewport: cap the grid container's width so a lone card sits in a naturally sized layout instead of being stranded in unbounded space, and consider a visible "more cafeterias coming soon" placeholder alongside it so the page still reads as intentional rather than incomplete.
+- **Cards**: consistent internal padding (16–20px), one consistent photo-slot aspect ratio used everywhere (pick one, e.g. 4:3), and consistent spacing between the photo, title, and subtitle.
+- **Vertical rhythm**: consistent spacing between major page sections (e.g. 48–64px between the header and the content grid below it) so every page follows the same repeatable rhythm instead of default browser spacing.
+- **Whitespace principle**: generous whitespace is meant to feel premium — that means intentional, contained breathing room around content, not an unbounded void next to a single stranded element. If a screen looks unorganized, check the container width and spacing scale before touching color.
+
+## 6. Per-screen guidance
 
 **Browse** — cream background, red header bar, cafeteria cards each with a photo slot, name, and short tag.
 
@@ -50,25 +62,25 @@ Do not leave this to the framework default — a default Next.js project ships w
 
 **Operator/courier dashboard** — calmer and more neutral than the customer site (it's a working tool, not a storefront), but red stays the accent color for primary actions (confirm payment, claim order, mark delivered) so it still reads as the same product rather than a bolted-on separate system.
 
-## 6. Micro-interactions
+## 7. Micro-interactions
 
 - Adding a spoon to an item: a brief scale/bounce on the count as it updates.
 - The match pill flipping from amber to green: a quick, satisfying color-and-icon transition when the totals converge.
 - Placing an order: a small celebratory moment (e.g., a brief check-mark animation), not a full-screen takeover.
 - Keep all of these fast — well under a quarter second — so they read as responsive polish, not showiness that slows the flow down.
 
-## 7. What to avoid
+## 8. What to avoid
 
 - Stark white backgrounds anywhere on the customer-facing site.
 - Default blue/gray corporate color schemes.
 - Sharp, minimal corners — this is a warm, appetite-forward brand, not a fintech dashboard.
 - Green used anywhere outside the one semantic success case. If green starts showing up as a general accent, that's a sign the direction has drifted.
 
-## 8. Icons
+## 9. Icons
 
 Use **Tabler Icons** (`@tabler/icons-react`), outline style only — never filled/solid variants. Outline icons match the rounded, friendly shape language better than heavy filled icons would. Use icons functionally (back arrows, upload, plus/minus steppers, checkmarks) rather than as standalone decoration. Standard inline size 16–20px; nothing larger unless it's a genuinely empty-state illustration moment (see Section 9).
 
-## 9. States and transitions
+## 10. States and transitions
 
 These are just as much a part of "the look and feel" as the happy path, and are exactly the kind of thing that reads as generic/unfinished if left to a framework default.
 
@@ -77,7 +89,7 @@ These are just as much a part of "the look and feel" as the happy path, and are 
 - **Error states**: clear and kind, never a raw exception message. Since red is already the primary brand color, error states need their own distinct treatment so they don't read as just another red button — pair error copy with a warning/error icon and a slightly different (darker/muted) red tone than the primary CTA red, so the two don't visually collide.
 - **Transitions**: simple, fast fades or slides between screens (browse → cafeteria → checkout), under 250ms. No heavy full-screen page-transition animations — those slow down perceived speed, which matters more than flourish here.
 
-## 10. Voice and content
+## 11. Voice and content
 
 Tone: warm, direct, and casual — write like a fellow student, not a corporate delivery brand. Short sentences, contractions are fine, no corporate filler ("leverage," "seamless," "empower"). This applies everywhere: headlines, button labels, empty states, and confirmations.
 
@@ -94,6 +106,6 @@ The backup-plate requirement is a concept customers haven't seen before and need
 
 Claude Code should treat this section as a starting point, not a locked script — the point is the tone (warm, plain, student-to-student), not that every word is final.
 
-## 11. Reference
+## 12. Reference
 
 There is no external mockup file to consult — Section 5 above is the complete, self-contained layout description for each screen. Build directly from it rather than assuming a visual reference exists elsewhere in the repo.

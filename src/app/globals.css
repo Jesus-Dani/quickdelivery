@@ -1,49 +1,50 @@
 @import "tailwindcss";
 
+/* Light (cream) theme only — dark mode is intentionally not implemented yet
+   (UI_VISUAL_DESIGN_DIRECTION.md Section 2 lists dark-mode values, but
+   nothing else in the app has a matching dark treatment, so shipping a
+   partial prefers-color-scheme response looks broken rather than
+   intentional. Revisit as a dedicated pass, not a byproduct of this one.) */
 :root {
-  --background: #fbf1e1;
-  --foreground: #241512;
+  --background: #fbf3de;
+  --foreground: #2c2114;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-fredoka);
 }
 
-/* Red & cream brand palette (UI_VISUAL_DESIGN_DIRECTION.md). Defined once
-   here so every component references the same tokens instead of hardcoding
-   hex values — kept as plain (non dark-mode-swapping) tokens because they're
-   used mostly as solid button/pill fills where the fixed hue already has
-   enough contrast in both themes; surfaces that do need to flip
-   (page/card backgrounds) use the --background-style indirection above or
-   dark: neutral utilities already in place. */
+/* Red & cream brand palette — exact values from
+   UI_VISUAL_DESIGN_DIRECTION.md Section 2. Defined once here so every
+   component references these tokens instead of hardcoding hex values. */
 @theme {
-  --color-cream: #fbf1e1;
-  --color-cream-dark: #1c130f;
-  --color-brand-red: #b3221d;
-  --color-brand-red-bright: #e6483f;
-  --color-brand-amber: #c2740a;
-  --color-brand-amber-soft: #fbe8c6;
-  --color-success: #157a3d;
-  --color-success-soft: #dcf5e3;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1c130f;
-    --foreground: #f3e9db;
-  }
+  --color-cream: #fbf3de;
+  --color-brand-red: #993c1d;
+  --color-brand-red-bright: #d85a30;
+  --color-brand-red-tint: #faece7;
+  --color-brand-amber: #ef9f27;
+  --color-brand-amber-soft: #faeeda;
+  --color-brand-amber-text: #633806;
+  --color-success: #3b6d11;
+  --color-success-soft: #eaf3de;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
-/* Micro-interactions (UI_VISUAL_DESIGN_DIRECTION.md Section 6) — all well
+h1,
+h2,
+h3 {
+  font-family: var(--font-fredoka), var(--font-inter), system-ui, sans-serif;
+}
+
+/* Micro-interactions (UI_VISUAL_DESIGN_DIRECTION.md Section 7) — all well
    under a quarter second so they read as responsive polish, not showiness. */
 
 @keyframes spoon-bump {
