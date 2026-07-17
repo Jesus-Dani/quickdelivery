@@ -7,8 +7,14 @@
 -- path is what lets us validate an upload belongs to a real, still-pending
 -- order without requiring customer auth.
 
-insert into storage.buckets (id, name, public)
-values ('payment-proofs', 'payment-proofs', false)
+-- 5 MB cap and image-only, enforced server-side (TRD 7 NFR: reasonable file
+-- size caps to keep storage costs predictable) — not just a client check.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'payment-proofs', 'payment-proofs', false,
+  5242880,
+  array['image/jpeg', 'image/png', 'image/webp', 'image/heic']
+)
 on conflict (id) do nothing;
 
 -- Anyone can upload into a folder whose name is a pending order's id — this

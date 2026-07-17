@@ -1,6 +1,10 @@
 // Hand-written to match supabase/migrations/*.sql. Regenerate with
 // `supabase gen types typescript` once the project is linked, and keep this
 // file in sync with the migrations until then.
+//
+// Every table needs `Relationships: []` and the schema needs `Views: {}` —
+// omitting them doesn't error directly, it silently collapses postgrest-js's
+// generic inference to `never` on unrelated queries against that schema.
 
 export type PaymentStatus = "pending" | "confirmed" | "rejected";
 export type OrderStatus = "unclaimed" | "claimed" | "purchased" | "delivered";
@@ -17,11 +21,12 @@ export interface Database {
           active: boolean;
           created_at: string;
         };
-        Insert: never;
+        Insert: Record<string, never>;
         Update: {
           name?: string;
           active?: boolean;
         };
+        Relationships: [];
       };
       couriers: {
         Row: {
@@ -31,12 +36,13 @@ export interface Database {
           active: boolean;
           created_at: string;
         };
-        Insert: never;
+        Insert: Record<string, never>;
         Update: {
           name?: string;
           phone?: string;
           active?: boolean;
         };
+        Relationships: [];
       };
       cafeterias: {
         Row: {
@@ -60,6 +66,7 @@ export interface Database {
           photo_url: string | null;
           active: boolean;
         }>;
+        Relationships: [];
       };
       menu_items: {
         Row: {
@@ -85,6 +92,7 @@ export interface Database {
           photo_url: string | null;
           active: boolean;
         }>;
+        Relationships: [];
       };
       delivery_destinations: {
         Row: {
@@ -93,8 +101,9 @@ export interface Database {
           active: boolean;
           created_at: string;
         };
-        Insert: never;
-        Update: never;
+        Insert: Record<string, never>;
+        Update: Record<string, never>;
+        Relationships: [];
       };
       delivery_fees: {
         Row: {
@@ -113,6 +122,7 @@ export interface Database {
         Update: {
           fee: number;
         };
+        Relationships: [];
       };
       orders: {
         Row: {
@@ -137,8 +147,9 @@ export interface Database {
           purchased_at: string | null;
           delivered_at: string | null;
         };
-        Insert: never;
-        Update: never;
+        Insert: Record<string, never>;
+        Update: Record<string, never>;
+        Relationships: [];
       };
       order_lines: {
         Row: {
@@ -149,8 +160,9 @@ export interface Database {
           line_total: number;
           is_backup: boolean;
         };
-        Insert: never;
-        Update: never;
+        Insert: Record<string, never>;
+        Update: Record<string, never>;
+        Relationships: [];
       };
       deliveries: {
         Row: {
@@ -163,8 +175,9 @@ export interface Database {
           purchased_at: string | null;
           delivered_at: string | null;
         };
-        Insert: never;
-        Update: never;
+        Insert: Record<string, never>;
+        Update: Record<string, never>;
+        Relationships: [];
       };
       audit_log: {
         Row: {
@@ -176,10 +189,12 @@ export interface Database {
           details: Record<string, unknown> | null;
           created_at: string;
         };
-        Insert: never;
-        Update: never;
+        Insert: Record<string, never>;
+        Update: Record<string, never>;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
     Functions: {
       create_order: {
         Args: {
