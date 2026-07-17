@@ -16,6 +16,7 @@ interface OrderBuilderProps {
   cafeteriaId: string;
   menuItems: MenuItemOption[];
   destinations: Destination[];
+  bankTransferDetails: string | null;
 }
 
 const MAX_PROOF_BYTES = 5 * 1024 * 1024;
@@ -40,6 +41,7 @@ export function OrderBuilder({
   cafeteriaId,
   menuItems,
   destinations,
+  bankTransferDetails,
 }: OrderBuilderProps) {
   const router = useRouter();
   const supabase = useMemo(() => createClient(), []);
@@ -163,9 +165,9 @@ export function OrderBuilder({
           account details below, then upload your proof of payment.
         </p>
 
-        {process.env.NEXT_PUBLIC_BANK_TRANSFER_DETAILS ? (
+        {bankTransferDetails ? (
           <pre className="whitespace-pre-wrap rounded bg-zinc-100 p-3 text-sm text-black dark:bg-zinc-900 dark:text-zinc-50">
-            {process.env.NEXT_PUBLIC_BANK_TRANSFER_DETAILS}
+            {bankTransferDetails}
           </pre>
         ) : (
           <p className="rounded bg-amber-100 p-3 text-sm text-amber-900 dark:bg-amber-950 dark:text-amber-200">

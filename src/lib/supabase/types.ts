@@ -193,6 +193,22 @@ export interface Database {
         Update: Record<string, never>;
         Relationships: [];
       };
+      app_settings: {
+        Row: {
+          key: string;
+          value: string | null;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        Insert: {
+          key: string;
+          value: string | null;
+        };
+        Update: {
+          value: string | null;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {

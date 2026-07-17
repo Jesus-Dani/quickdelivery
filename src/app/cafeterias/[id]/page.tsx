@@ -10,29 +10,33 @@ export default async function CafeteriaOrderPage({
   const { id } = await params;
   const supabase = await createClient();
 
-  const [{ data: cafeteria }, { data: menuItems }, { data: fees }, { data: allDestinations }] =
-    await Promise.all([
-      supabase
-        .from("cafeterias")
-        .select("id, name, description")
-        .eq("id", id)
-        .eq("active", true)
-        .maybeSingle(),
-      supabase
-        .from("menu_items")
-        .select("id, name, price_per_spoon, photo_url")
-        .eq("cafeteria_id", id)
-        .eq("active", true)
-        .order("name"),
-      supabase
-        .from("delivery_fees")
-        .select("destination_id, fee")
-        .eq("cafeteria_id", id),
-      supabase
-        .from("delivery_destinations")
-        .select("id, name")
-        .eq("active", true),
-    ]);
+  const [
+    { data: cafeteria },
+    { data: menuItems },
+    { data: fees },
+    { data: allDestinations },
+    { data: bankSetting },
+  ] = await Promise.all([
+    supabase
+      .from("cafeterias")
+      .select("id, name, description")
+      .eq("id", id)
+      .eq("active", true)
+      .maybeSingle(),
+    supabase
+      .from("menu_items")
+      .select("id, name, price_per_spoon, photo_url")
+      .eq("cafeteria_id", id)
+      .eq("active", true)
+      .order("name"),
+    supabase.from("delivery_fees").select("destination_id, fee").eq("cafeteria_id", id),
+    supabase.from("delivery_destinations").select("id, name").eq("active", true),
+    supabase
+      .from("app_settings")
+      .select("value")
+      .eq("key", "bank_transfer_details")
+      .maybeSingle(),
+  ]);
 
   if (!cafeteria) {
     notFound();
@@ -68,6 +72,7 @@ export default async function CafeteriaOrderPage({
           cafeteriaId={cafeteria.id}
           menuItems={menuItems ?? []}
           destinations={destinations}
+          bankTransferDetails={bankSetting?.value ?? null}
         />
       </main>
     </div>
