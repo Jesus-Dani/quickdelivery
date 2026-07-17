@@ -21,7 +21,7 @@ export default async function Home() {
     <div className="flex flex-1 flex-col bg-cream">
       <header className="bg-brand-red py-10">
         <Container>
-          <h1 className="text-3xl font-bold text-white">Campus Food Delivery</h1>
+          <h1 className="text-3xl font-bold text-white">Quick Delivery</h1>
           <p className="mt-1 text-brand-red-tint">Pick a cafeteria to start your order.</p>
         </Container>
       </header>

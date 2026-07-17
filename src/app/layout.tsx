@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Campus Food Delivery",
+  title: "Quick Delivery",
   description: "Order food from campus cafeterias for delivery.",
 };
 
