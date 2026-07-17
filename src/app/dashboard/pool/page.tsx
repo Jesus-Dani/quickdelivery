@@ -19,9 +19,9 @@ export default async function OrderPoolPage() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-4">
-      <h1 className="text-lg font-semibold text-black dark:text-zinc-50">Order pool</h1>
+      <h1 className="text-lg font-bold text-black dark:text-zinc-50">Order pool</h1>
 
-      {error && <p className="text-red-600 dark:text-red-400">Couldn&apos;t load the pool.</p>}
+      {error && <p className="text-brand-red dark:text-red-400">Couldn&apos;t load the pool.</p>}
 
       {!error && details.length === 0 && (
         <p className="text-zinc-600 dark:text-zinc-400">No open orders right now.</p>

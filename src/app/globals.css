@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fbf1e1;
+  --foreground: #241512;
 }
 
 @theme inline {
@@ -12,10 +12,28 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Red & cream brand palette (UI_VISUAL_DESIGN_DIRECTION.md). Defined once
+   here so every component references the same tokens instead of hardcoding
+   hex values — kept as plain (non dark-mode-swapping) tokens because they're
+   used mostly as solid button/pill fills where the fixed hue already has
+   enough contrast in both themes; surfaces that do need to flip
+   (page/card backgrounds) use the --background-style indirection above or
+   dark: neutral utilities already in place. */
+@theme {
+  --color-cream: #fbf1e1;
+  --color-cream-dark: #1c130f;
+  --color-brand-red: #b3221d;
+  --color-brand-red-bright: #e6483f;
+  --color-brand-amber: #c2740a;
+  --color-brand-amber-soft: #fbe8c6;
+  --color-success: #157a3d;
+  --color-success-soft: #dcf5e3;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1c130f;
+    --foreground: #f3e9db;
   }
 }
 
@@ -23,4 +41,41 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Micro-interactions (UI_VISUAL_DESIGN_DIRECTION.md Section 6) — all well
+   under a quarter second so they read as responsive polish, not showiness. */
+
+@keyframes spoon-bump {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-spoon-bump {
+  animation: spoon-bump 180ms ease-out;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }

@@ -55,15 +55,15 @@ export function LoginForm() {
   }
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 px-6 py-10 dark:bg-black">
-      <div className="w-full max-w-sm rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 px-6 py-10 dark:bg-zinc-950">
+      <div className="w-full max-w-sm rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mb-4 flex gap-4 border-b border-zinc-200 dark:border-zinc-800">
           <button
             type="button"
             onClick={() => setTab("signin")}
             className={`pb-2 text-sm font-medium ${
               tab === "signin"
-                ? "border-b-2 border-black text-black dark:border-white dark:text-zinc-50"
+                ? "border-b-2 border-brand-red text-brand-red dark:border-brand-red-bright dark:text-brand-red-bright"
                 : "text-zinc-500"
             }`}
           >
@@ -74,7 +74,7 @@ export function LoginForm() {
             onClick={() => setTab("courier-signup")}
             className={`pb-2 text-sm font-medium ${
               tab === "courier-signup"
-                ? "border-b-2 border-black text-black dark:border-white dark:text-zinc-50"
+                ? "border-b-2 border-brand-red text-brand-red dark:border-brand-red-bright dark:text-brand-red-bright"
                 : "text-zinc-500"
             }`}
           >
@@ -101,7 +101,7 @@ export function LoginForm() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+                  className="rounded-full border border-zinc-300 px-4 py-2 dark:border-zinc-700 dark:bg-zinc-900"
                 />
               </label>
               <label className="flex flex-col gap-1 text-sm text-black dark:text-zinc-50">
@@ -111,7 +111,7 @@ export function LoginForm() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+                  className="rounded-full border border-zinc-300 px-4 py-2 dark:border-zinc-700 dark:bg-zinc-900"
                 />
               </label>
             </>
@@ -124,7 +124,7 @@ export function LoginForm() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              className="rounded-full border border-zinc-300 px-4 py-2 dark:border-zinc-700 dark:bg-zinc-900"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm text-black dark:text-zinc-50">
@@ -135,16 +135,16 @@ export function LoginForm() {
               minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              className="rounded-full border border-zinc-300 px-4 py-2 dark:border-zinc-700 dark:bg-zinc-900"
             />
           </label>
 
-          {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+          {error && <p className="text-sm text-brand-red dark:text-red-400">{error}</p>}
 
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 rounded-full bg-black px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-white dark:text-black"
+            className="mt-2 rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
           >
             {loading
               ? "Please wait…"

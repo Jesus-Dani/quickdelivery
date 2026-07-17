@@ -30,11 +30,11 @@ export function FundCourierButton({ orderId }: { orderId: string }) {
         type="button"
         disabled={busy}
         onClick={handleFund}
-        className="rounded-full bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-white dark:text-black"
+        className="rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
       >
         Mark courier funded
       </button>
-      {error && <p className="text-xs text-red-600 dark:text-red-400">{error}</p>}
+      {error && <p className="text-xs text-brand-red dark:text-red-400">{error}</p>}
     </div>
   );
 }

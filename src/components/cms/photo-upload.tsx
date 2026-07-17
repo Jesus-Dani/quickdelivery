@@ -33,8 +33,12 @@ export function PhotoUpload({ currentUrl, onUploaded, label }: PhotoUploadProps)
 
   return (
     <label className="flex cursor-pointer flex-col items-center gap-1">
-      <div className="relative h-16 w-16 overflow-hidden rounded border border-dashed border-zinc-300 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900">
-        {preview && <Image src={preview} alt="" fill className="object-cover" />}
+      <div className="relative h-16 w-16 overflow-hidden rounded-xl border-2 border-dashed border-brand-red/30 bg-brand-amber-soft dark:border-brand-red-bright/30 dark:bg-zinc-800">
+        {preview ? (
+          <Image src={preview} alt="" fill className="object-cover" />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-xl">📷</div>
+        )}
         {uploading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-xs text-white">
             …
@@ -42,7 +46,7 @@ export function PhotoUpload({ currentUrl, onUploaded, label }: PhotoUploadProps)
         )}
       </div>
       {label && <span className="text-xs text-zinc-500">{label}</span>}
-      {error && <span className="text-xs text-red-600 dark:text-red-400">{error}</span>}
+      {error && <span className="text-xs text-brand-red dark:text-red-400">{error}</span>}
       <input
         type="file"
         accept="image/*"

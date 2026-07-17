@@ -59,8 +59,8 @@ export function OrderStatusLookup({ orderId }: { orderId: string }) {
   }
 
   return (
-    <div className="mx-auto flex max-w-md flex-col gap-4 rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
-      <h1 className="text-lg font-medium text-black dark:text-zinc-50">
+    <div className="mx-auto flex w-full max-w-md flex-col gap-4 rounded-2xl border border-black/5 bg-white p-6 dark:border-white/10 dark:bg-[#2a1c16]">
+      <h1 className="text-lg font-bold text-black dark:text-zinc-50">
         Check your order status
       </h1>
       <label className="flex flex-col gap-1 text-sm text-black dark:text-zinc-50">
@@ -69,22 +69,22 @@ export function OrderStatusLookup({ orderId }: { orderId: string }) {
           type="tel"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
-          className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-full border border-zinc-300 px-4 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         />
       </label>
       <button
         type="button"
         onClick={handleLookup}
         disabled={contact.trim().length === 0 || loading}
-        className="rounded-full bg-black px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-white dark:text-black"
+        className="rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
       >
         {loading ? "Checking…" : "Check status"}
       </button>
 
-      {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+      {error && <p className="text-sm text-brand-red dark:text-red-400">{error}</p>}
 
       {status && (
-        <div className="rounded border border-zinc-200 p-4 text-sm dark:border-zinc-800">
+        <div className="rounded-xl bg-brand-amber-soft p-4 text-sm dark:bg-[#3a2717]">
           <p className="text-black dark:text-zinc-50">
             <strong>Order status:</strong>{" "}
             {STATUS_LABEL[status.status] ?? status.status}
@@ -93,7 +93,7 @@ export function OrderStatusLookup({ orderId }: { orderId: string }) {
             <strong>Payment:</strong>{" "}
             {PAYMENT_LABEL[status.payment_status] ?? status.payment_status}
           </p>
-          <p className="mt-1 text-black dark:text-zinc-50">
+          <p className="mt-1 tabular-nums text-black dark:text-zinc-50">
             <strong>Total:</strong> {formatMoney(status.grand_total)}
           </p>
           {status.substitution_used && (

@@ -30,8 +30,8 @@ export function SettingsForm({ initialValue }: { initialValue: string }) {
   }
 
   return (
-    <section className="mx-auto flex max-w-md flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
-      <h1 className="font-medium text-black dark:text-zinc-50">Bank transfer details</h1>
+    <section className="mx-auto flex max-w-md flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <h1 className="font-bold text-black dark:text-zinc-50">Bank transfer details</h1>
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
         Shown to customers at checkout after they place an order. Include the
         account name, number, and bank.
@@ -41,15 +41,15 @@ export function SettingsForm({ initialValue }: { initialValue: string }) {
         onChange={(e) => setValue(e.target.value)}
         rows={4}
         placeholder={"e.g.\nAccount name: ...\nAccount number: ...\nBank: ..."}
-        className="rounded border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+        className="rounded-xl border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
       />
-      {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
-      {saved && <p className="text-sm text-green-700 dark:text-green-400">Saved.</p>}
+      {error && <p className="text-sm text-brand-red dark:text-red-400">{error}</p>}
+      {saved && <p className="text-sm text-success dark:text-green-400">Saved.</p>}
       <button
         type="button"
         disabled={saving}
         onClick={handleSave}
-        className="self-start rounded-full bg-black px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-white dark:text-black"
+        className="self-start rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
       >
         {saving ? "Saving…" : "Save"}
       </button>

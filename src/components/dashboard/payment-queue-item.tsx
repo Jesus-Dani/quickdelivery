@@ -35,10 +35,10 @@ export function PaymentQueueItem({ order }: { order: OrderSummary }) {
   }
 
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800 dark:bg-zinc-900">
       <div>
         <p className="font-medium text-black dark:text-zinc-50">{order.cafeteriaName}</p>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="tabular-nums text-sm text-zinc-600 dark:text-zinc-400">
           {order.customer_contact} · {formatMoney(order.grand_total)}
         </p>
         <p className="text-xs text-zinc-500">
@@ -49,23 +49,23 @@ export function PaymentQueueItem({ order }: { order: OrderSummary }) {
             href={order.signedProofUrl}
             target="_blank"
             rel="noreferrer"
-            className="mt-1 inline-block text-sm text-blue-600 underline dark:text-blue-400"
+            className="mt-1 inline-block text-sm text-brand-red underline dark:text-brand-red-bright"
           >
             View payment proof
           </a>
         ) : (
-          <p className="mt-1 text-sm text-amber-700 dark:text-amber-400">
+          <p className="mt-1 inline-flex items-center rounded-full bg-brand-amber-soft px-2 py-0.5 text-xs font-medium text-amber-900 dark:bg-amber-950 dark:text-amber-300">
             No payment proof uploaded yet
           </p>
         )}
-        {error && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>}
+        {error && <p className="mt-1 text-sm text-brand-red dark:text-red-400">{error}</p>}
       </div>
       <div className="flex gap-2">
         <button
           type="button"
           disabled={busy}
           onClick={() => handleDecision("reject_payment")}
-          className="rounded-full border border-red-300 px-4 py-2 text-sm font-medium text-red-700 disabled:opacity-40 dark:border-red-800 dark:text-red-400"
+          className="rounded-full border border-brand-red/40 px-4 py-2 text-sm font-medium text-brand-red disabled:opacity-40 dark:border-red-800 dark:text-red-400"
         >
           Reject
         </button>
@@ -73,7 +73,7 @@ export function PaymentQueueItem({ order }: { order: OrderSummary }) {
           type="button"
           disabled={busy}
           onClick={() => handleDecision("confirm_payment")}
-          className="rounded-full bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-white dark:text-black"
+          className="rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40 dark:bg-brand-red-bright"
         >
           Confirm
         </button>

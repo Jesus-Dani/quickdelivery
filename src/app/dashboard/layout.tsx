@@ -30,12 +30,17 @@ export default async function DashboardLayout({
       : [{ href: "/dashboard/pool", label: "Order pool" }];
 
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-zinc-50 dark:bg-black">
-      <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
-        <nav className="flex items-center gap-4">
-          <span className="text-sm font-semibold text-black dark:text-zinc-50">
+    <div className="flex min-h-full flex-1 flex-col bg-zinc-50 dark:bg-zinc-950">
+      <header className="flex flex-col gap-2 border-b border-zinc-200 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="flex items-center justify-between gap-4">
+          <span className="shrink-0 text-sm font-bold text-brand-red dark:text-brand-red-bright">
             {profile.name || (profile.role === "operator" ? "Operator" : "Courier")}
           </span>
+          <div className="sm:hidden">
+            <SignOutButton />
+          </div>
+        </div>
+        <nav className="flex flex-wrap items-center gap-x-4 gap-y-1">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -46,7 +51,9 @@ export default async function DashboardLayout({
             </Link>
           ))}
         </nav>
-        <SignOutButton />
+        <div className="hidden sm:block">
+          <SignOutButton />
+        </div>
       </header>
       <main className="flex-1 p-4">{children}</main>
     </div>

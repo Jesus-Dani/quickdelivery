@@ -55,15 +55,11 @@ export default async function CafeteriaOrderPage({
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <div className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
-      <header className="border-b border-zinc-200 px-6 py-6 dark:border-zinc-800">
-        <h1 className="text-xl font-semibold text-black dark:text-zinc-50">
-          {cafeteria.name}
-        </h1>
+    <div className="flex flex-1 flex-col bg-cream dark:bg-cream-dark">
+      <header className="bg-brand-red px-6 py-6">
+        <h1 className="text-2xl font-bold text-white">{cafeteria.name}</h1>
         {cafeteria.description && (
-          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            {cafeteria.description}
-          </p>
+          <p className="mt-1 text-sm text-red-100">{cafeteria.description}</p>
         )}
       </header>
 

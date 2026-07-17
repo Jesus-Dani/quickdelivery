@@ -8,7 +8,7 @@ export default async function OrderStatusPage({
   const { id } = await params;
 
   return (
-    <div className="flex flex-1 flex-col bg-zinc-50 px-6 py-10 dark:bg-black">
+    <div className="flex flex-1 flex-col bg-cream px-6 py-10 dark:bg-cream-dark">
       <OrderStatusLookup orderId={id} />
     </div>
   );
