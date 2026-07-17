@@ -169,25 +169,28 @@ begin
   )
   returning id into v_order_id;
 
+  -- Aliased "elem", not "v_line" — reusing the outer PL/pgSQL variable name
+  -- as a FROM-clause alias here makes every (v_line ->> ...) reference
+  -- ambiguous between the variable and the column, and Postgres rejects it.
   insert into order_lines (order_id, menu_item_id, spoon_count, line_total, is_backup)
   select
     v_order_id,
-    (v_line ->> 'menu_item_id')::uuid,
-    (v_line ->> 'spoon_count')::integer,
-    mi.price_per_spoon * (v_line ->> 'spoon_count')::integer,
+    (elem ->> 'menu_item_id')::uuid,
+    (elem ->> 'spoon_count')::integer,
+    mi.price_per_spoon * (elem ->> 'spoon_count')::integer,
     false
-  from jsonb_array_elements(p_primary_lines) v_line
-  join menu_items mi on mi.id = (v_line ->> 'menu_item_id')::uuid;
+  from jsonb_array_elements(p_primary_lines) elem
+  join menu_items mi on mi.id = (elem ->> 'menu_item_id')::uuid;
 
   insert into order_lines (order_id, menu_item_id, spoon_count, line_total, is_backup)
   select
     v_order_id,
-    (v_line ->> 'menu_item_id')::uuid,
-    (v_line ->> 'spoon_count')::integer,
-    mi.price_per_spoon * (v_line ->> 'spoon_count')::integer,
+    (elem ->> 'menu_item_id')::uuid,
+    (elem ->> 'spoon_count')::integer,
+    mi.price_per_spoon * (elem ->> 'spoon_count')::integer,
     true
-  from jsonb_array_elements(p_backup_lines) v_line
-  join menu_items mi on mi.id = (v_line ->> 'menu_item_id')::uuid;
+  from jsonb_array_elements(p_backup_lines) elem
+  join menu_items mi on mi.id = (elem ->> 'menu_item_id')::uuid;
 
   return v_order_id;
 end;
