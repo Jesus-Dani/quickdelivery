@@ -44,7 +44,7 @@ export default async function Home() {
               <Link
                 key={cafeteria.id}
                 href={`/cafeterias/${cafeteria.id}`}
-                className="flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white no-underline transition hover:-translate-y-0.5 hover:shadow-md"
+                className="flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-brand-accent no-underline transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div className="relative aspect-[4/3] w-full bg-brand-amber-soft">
                   {cafeteria.photo_url ? (

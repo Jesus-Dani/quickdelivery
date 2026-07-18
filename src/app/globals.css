@@ -6,7 +6,7 @@
    partial prefers-color-scheme response looks broken rather than
    intentional. Revisit as a dedicated pass, not a byproduct of this one.) */
 :root {
-  --background: #fbf3de;
+  --background: #f2fafc;
   --foreground: #2c2114;
 }
 
@@ -26,7 +26,7 @@
    Section 10 (error states need a distinct treatment from the primary
    accent color). */
 @theme {
-  --color-cream: #fbf3de;
+  --color-cream: #f2fafc;
   --color-brand: #13486a;
   --color-brand-accent: #5ba8d9;
   --color-on-brand: #f2fafc;

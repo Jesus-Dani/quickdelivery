@@ -14,9 +14,9 @@ Use these exact values as the starting palette — don't leave color selection t
 
 | Role | Light mode | Dark mode | Use |
 |---|---|---|---|
-| Page background (customer site) | `#FBF3DE` | `#241F14` | Cream base — never stark white |
+| Page background (customer site) | `#F2FAFC` | `#241F14` | Pale cyan-white base (replaced the original cream on request) |
 | Brand (dominant) | `#13486A` | `#5BA8D9` | Primary buttons, header bar, key CTAs — pairs with the on-brand text color below |
-| Brand (accent) | `#5BA8D9` | `#5BA8D9` | Smaller accents, tags, dividers, highlights |
+| Brand (accent) | `#5BA8D9` | `#5BA8D9` | Smaller accents, tags, dividers, highlights, and the browse-page cafeteria card's content background (in place of a plain white card) |
 | Text on brand | `#F2FAFC` | `#F2FAFC` | Text/icons placed directly on a brand or brand-accent background (header copy, button labels) |
 | Error / warning text | `#993C1D` | `#F0997B` | Validation errors, failed loads — deliberately not the brand color, so failures don't read as blue |
 | Secondary amber | `#EF9F27` | `#EF9F27` | Secondary highlights, "needs more" state in the match indicator |
