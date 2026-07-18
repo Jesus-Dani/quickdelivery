@@ -24,7 +24,6 @@ export default async function DashboardLayout({
           { href: "/dashboard/payments", label: "Payments" },
           { href: "/dashboard/board", label: "Dispatch board" },
           { href: "/dashboard/pool", label: "Order pool" },
-          { href: "/dashboard/cms", label: "Menu CMS" },
           { href: "/dashboard/settings", label: "Settings" },
         ]
       : [{ href: "/dashboard/pool", label: "Order pool" }];
