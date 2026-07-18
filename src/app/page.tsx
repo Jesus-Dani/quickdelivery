@@ -39,12 +39,12 @@ export default async function Home() {
             <p className="text-[#2C2114]/70">No cafeterias open right now — check back soon.</p>
           )}
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-6">
             {cafeterias?.map((cafeteria) => (
               <Link
                 key={cafeteria.id}
                 href={`/cafeterias/${cafeteria.id}`}
-                className="flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-brand-accent no-underline transition hover:-translate-y-0.5 hover:shadow-md"
+                className="flex flex-col overflow-hidden rounded-xl border border-black/5 bg-brand-accent no-underline transition hover:-translate-y-0.5 hover:shadow-md sm:rounded-2xl"
               >
                 <div className="relative aspect-[4/3] w-full bg-brand-amber-soft">
                   {cafeteria.photo_url ? (
@@ -56,14 +56,17 @@ export default async function Home() {
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-brand-amber-text">
-                      <IconToolsKitchen2 size={40} stroke={1.5} />
+                      <IconToolsKitchen2 size={28} stroke={1.5} className="sm:hidden" />
+                      <IconToolsKitchen2 size={40} stroke={1.5} className="hidden sm:block" />
                     </div>
                   )}
                 </div>
-                <div className="flex flex-1 flex-col gap-1 p-5">
-                  <h2 className="font-bold text-[#2C2114] no-underline">{cafeteria.name}</h2>
+                <div className="flex flex-1 flex-col gap-0.5 p-2.5 sm:gap-1 sm:p-5">
+                  <h2 className="text-sm font-bold text-[#2C2114] no-underline sm:text-base">
+                    {cafeteria.name}
+                  </h2>
                   {cafeteria.description && (
-                    <p className="text-sm text-[#2C2114]/70 no-underline">
+                    <p className="line-clamp-2 text-xs text-[#2C2114]/70 no-underline sm:text-sm">
                       {cafeteria.description}
                     </p>
                   )}
@@ -72,7 +75,7 @@ export default async function Home() {
             ))}
 
             {showComingSoonTile && (
-              <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-brand-accent/50 p-5 text-center text-sm text-[#2C2114]/60">
+              <div className="flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-brand-accent/50 p-2.5 text-center text-xs text-[#2C2114]/60 sm:rounded-2xl sm:p-5 sm:text-sm">
                 <IconToolsKitchen2 size={28} stroke={1.5} className="text-brand-accent" />
                 More cafeterias coming soon.
               </div>
