@@ -18,6 +18,7 @@ export function LoginForm() {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [confirmationPending, setConfirmationPending] = useState(false);
 
   async function handleSignIn() {
     setLoading(true);
@@ -38,7 +39,8 @@ export function LoginForm() {
   async function handleCourierSignUp() {
     setLoading(true);
     setError(null);
-    const { error: signUpError } = await supabase.auth.signUp({
+    setConfirmationPending(false);
+    const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -50,6 +52,16 @@ export function LoginForm() {
       setError(signUpError.message);
       return;
     }
+
+    // signUp() only returns a live session when email confirmation is off
+    // for this project. With it on (the current setting), the account is
+    // created but there's no session yet — redirecting to /dashboard here
+    // would just bounce straight back to /login with no explanation.
+    if (!data.session) {
+      setConfirmationPending(true);
+      return;
+    }
+
     router.push("/dashboard");
     router.refresh();
   }
@@ -140,6 +152,12 @@ export function LoginForm() {
           </label>
 
           {error && <p className="text-sm text-error">{error}</p>}
+          {confirmationPending && (
+            <p className="text-sm text-success">
+              Account created — check {email} for a confirmation link, then
+              come back and sign in.
+            </p>
+          )}
 
           <button
             type="submit"
