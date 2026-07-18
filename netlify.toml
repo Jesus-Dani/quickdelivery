@@ -1,5 +1,11 @@
 [build]
-  command = "npm run build"
+  # Next.js 16 defaults `next build` to Turbopack, but @netlify/plugin-nextjs
+  # (currently 5.15.12, the latest release) can't yet bundle Turbopack's
+  # edge-function/middleware output — it fails resolving a
+  # "./chunks/[turbopack]_runtime.js" reference. --webpack opts back into
+  # the bundler the adapter actually supports; local dev/build stay on
+  # Turbopack via the plain "build"/"dev" scripts.
+  command = "npm run build:netlify"
   publish = ".next"
 
 [[plugins]]
