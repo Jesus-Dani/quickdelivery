@@ -230,12 +230,12 @@ export function CafeteriaManager({
             type="button"
             disabled={addingItem}
             onClick={handleAddItem}
-            className="rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+            className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
           >
             Add item
           </button>
         </div>
-        {addItemError && <p className="mt-2 text-sm text-brand-red">{addItemError}</p>}
+        {addItemError && <p className="mt-2 text-sm text-error">{addItemError}</p>}
       </section>
 
       <section className="rounded-2xl border border-zinc-200 bg-white p-5">
@@ -264,12 +264,12 @@ export function CafeteriaManager({
           type="button"
           disabled={savingFees}
           onClick={handleSaveFees}
-          className="mt-3 rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+          className="mt-3 rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
         >
           Save fees
         </button>
         {feeSaved && <p className="mt-2 text-sm text-success">Saved.</p>}
-        {feeError && <p className="mt-2 text-sm text-brand-red">{feeError}</p>}
+        {feeError && <p className="mt-2 text-sm text-error">{feeError}</p>}
       </section>
     </div>
   );

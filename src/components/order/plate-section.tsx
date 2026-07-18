@@ -61,7 +61,7 @@ export function PlateSection({
                   type="button"
                   aria-label={`Decrease ${item.name}`}
                   onClick={() => onChange(item.id, Math.max(0, count - 1))}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-red text-lg leading-none text-brand-red disabled:opacity-30"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-brand text-lg leading-none text-brand disabled:opacity-30"
                   disabled={count === 0}
                 >
                   −
@@ -76,7 +76,7 @@ export function PlateSection({
                   type="button"
                   aria-label={`Increase ${item.name}`}
                   onClick={() => onChange(item.id, count + 1)}
-                  className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red text-lg leading-none text-white"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-lg leading-none text-on-brand"
                 >
                   +
                 </button>

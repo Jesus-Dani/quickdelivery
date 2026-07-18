@@ -51,7 +51,7 @@ export function NewCafeteriaFlow({ destinations }: { destinations: Destination[]
   if (cafeteriaId) {
     return (
       <div className="mx-auto flex max-w-2xl flex-col gap-4">
-        <Link href="/dashboard/cms" className="text-sm text-brand-red underline">
+        <Link href="/dashboard/cms" className="text-sm text-brand underline">
           ← Back to CMS
         </Link>
         <p className="text-sm text-zinc-600">
@@ -82,12 +82,12 @@ export function NewCafeteriaFlow({ destinations }: { destinations: Destination[]
           className="flex-1 rounded-full border border-zinc-300 px-4 py-2"
         />
       </div>
-      {error && <p className="text-sm text-brand-red">{error}</p>}
+      {error && <p className="text-sm text-error">{error}</p>}
       <button
         type="button"
         disabled={creating}
         onClick={handleCreate}
-        className="self-start rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
+        className="self-start rounded-full bg-brand px-5 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
       >
         {creating ? "Creating…" : "Create cafeteria & add items"}
       </button>

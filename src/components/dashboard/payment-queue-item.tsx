@@ -49,7 +49,7 @@ export function PaymentQueueItem({ order }: { order: OrderSummary }) {
             href={order.signedProofUrl}
             target="_blank"
             rel="noreferrer"
-            className="mt-1 inline-block text-sm text-brand-red underline"
+            className="mt-1 inline-block text-sm text-brand underline"
           >
             View payment proof
           </a>
@@ -58,14 +58,14 @@ export function PaymentQueueItem({ order }: { order: OrderSummary }) {
             No payment proof uploaded yet
           </p>
         )}
-        {error && <p className="mt-1 text-sm text-brand-red">{error}</p>}
+        {error && <p className="mt-1 text-sm text-error">{error}</p>}
       </div>
       <div className="flex gap-2">
         <button
           type="button"
           disabled={busy}
           onClick={() => handleDecision("reject_payment")}
-          className="rounded-full border border-brand-red/40 px-4 py-2 text-sm font-medium text-brand-red disabled:opacity-40"
+          className="rounded-full border border-brand/40 px-4 py-2 text-sm font-medium text-brand disabled:opacity-40"
         >
           Reject
         </button>
@@ -73,7 +73,7 @@ export function PaymentQueueItem({ order }: { order: OrderSummary }) {
           type="button"
           disabled={busy}
           onClick={() => handleDecision("confirm_payment")}
-          className="rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+          className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
         >
           Confirm
         </button>

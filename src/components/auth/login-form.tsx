@@ -63,7 +63,7 @@ export function LoginForm() {
             onClick={() => setTab("signin")}
             className={`pb-2 text-sm font-medium ${
               tab === "signin"
-                ? "border-b-2 border-brand-red text-brand-red"
+                ? "border-b-2 border-brand text-brand"
                 : "text-zinc-500"
             }`}
           >
@@ -74,7 +74,7 @@ export function LoginForm() {
             onClick={() => setTab("courier-signup")}
             className={`pb-2 text-sm font-medium ${
               tab === "courier-signup"
-                ? "border-b-2 border-brand-red text-brand-red"
+                ? "border-b-2 border-brand text-brand"
                 : "text-zinc-500"
             }`}
           >
@@ -139,12 +139,12 @@ export function LoginForm() {
             />
           </label>
 
-          {error && <p className="text-sm text-brand-red">{error}</p>}
+          {error && <p className="text-sm text-error">{error}</p>}
 
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
+            className="mt-2 rounded-full bg-brand px-5 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
           >
             {loading
               ? "Please wait…"

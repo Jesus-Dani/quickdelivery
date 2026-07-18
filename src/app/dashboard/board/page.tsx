@@ -42,7 +42,7 @@ export default async function DispatchBoardPage() {
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
       <h1 className="text-lg font-bold text-black">Dispatch board</h1>
 
-      {error && <p className="text-brand-red">Couldn&apos;t load orders.</p>}
+      {error && <p className="text-error">Couldn&apos;t load orders.</p>}
 
       {grouped.map((group) => (
         <section key={group.status}>

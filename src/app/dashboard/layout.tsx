@@ -33,7 +33,7 @@ export default async function DashboardLayout({
     <div className="flex min-h-full flex-1 flex-col bg-zinc-50">
       <header className="flex flex-col gap-2 border-b border-zinc-200 bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div className="flex items-center justify-between gap-4">
-          <span className="shrink-0 text-sm font-bold text-brand-red">
+          <span className="shrink-0 text-sm font-bold text-brand">
             {profile.name || (profile.role === "operator" ? "Operator" : "Courier")}
           </span>
           <div className="sm:hidden">

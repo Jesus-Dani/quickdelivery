@@ -19,17 +19,17 @@ export default async function Home() {
 
   return (
     <div className="flex flex-1 flex-col bg-cream">
-      <header className="bg-brand-red py-10">
+      <header className="bg-brand py-10">
         <Container>
-          <h1 className="text-3xl font-bold text-white">Quick Delivery</h1>
-          <p className="mt-1 text-brand-red-tint">Pick a cafeteria to start your order.</p>
+          <h1 className="text-3xl font-bold text-on-brand">Quick Delivery</h1>
+          <p className="mt-1 text-on-brand">Pick a cafeteria to start your order.</p>
         </Container>
       </header>
 
       <main className="flex-1 py-12">
         <Container>
           {error && (
-            <p className="flex items-center gap-2 text-brand-red">
+            <p className="flex items-center gap-2 text-error">
               <IconAlertCircle size={20} stroke={1.75} />
               Couldn&apos;t load cafeterias right now. Please try again shortly.
             </p>
@@ -72,8 +72,8 @@ export default async function Home() {
             ))}
 
             {showComingSoonTile && (
-              <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-brand-red/20 p-5 text-center text-sm text-[#2C2114]/60">
-                <IconToolsKitchen2 size={28} stroke={1.5} className="text-brand-red/30" />
+              <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-brand-accent/50 p-5 text-center text-sm text-[#2C2114]/60">
+                <IconToolsKitchen2 size={28} stroke={1.5} className="text-brand-accent" />
                 More cafeterias coming soon.
               </div>
             )}

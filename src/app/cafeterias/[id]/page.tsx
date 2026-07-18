@@ -57,11 +57,11 @@ export default async function CafeteriaOrderPage({
 
   return (
     <div className="flex flex-1 flex-col bg-cream">
-      <header className="bg-brand-red py-9">
+      <header className="bg-brand py-9">
         <Container>
-          <h1 className="text-2xl font-bold text-white">{cafeteria.name}</h1>
+          <h1 className="text-2xl font-bold text-on-brand">{cafeteria.name}</h1>
           {cafeteria.description && (
-            <p className="mt-1 text-sm text-brand-red-tint">{cafeteria.description}</p>
+            <p className="mt-1 text-sm text-on-brand">{cafeteria.description}</p>
           )}
         </Container>
       </header>

@@ -78,7 +78,7 @@ export function OrderPoolCard({
         </p>
       )}
 
-      {error && <p className="text-sm text-brand-red">{error}</p>}
+      {error && <p className="text-sm text-error">{error}</p>}
 
       {role === "courier" && order.status === "unclaimed" && (
         <button
@@ -87,7 +87,7 @@ export function OrderPoolCard({
           onClick={() =>
             run(() => supabase.rpc("claim_order", { p_order_id: order.id }))
           }
-          className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+          className="self-start rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
         >
           Claim order
         </button>
@@ -124,7 +124,7 @@ export function OrderPoolCard({
                 })
               )
             }
-            className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+            className="self-start rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
           >
             Mark purchased
           </button>
@@ -138,7 +138,7 @@ export function OrderPoolCard({
           onClick={() =>
             run(() => supabase.rpc("mark_order_delivered", { p_order_id: order.id }))
           }
-          className="self-start rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+          className="self-start rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
         >
           Mark delivered
         </button>

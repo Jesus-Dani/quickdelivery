@@ -151,7 +151,7 @@ export function OrderBuilder({
         <button
           type="button"
           onClick={() => router.push(`/orders/${orderId}`)}
-          className="mt-2 rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white"
+          className="mt-2 rounded-full bg-brand px-5 py-2 text-sm font-medium text-on-brand"
         >
           View order status
         </button>
@@ -183,8 +183,8 @@ export function OrderBuilder({
           </p>
         )}
 
-        <label className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-dashed border-brand-red/30 bg-cream px-4 py-6 text-center text-sm text-[#2C2114]/80 transition hover:border-brand-red/60">
-          <IconCamera size={28} stroke={1.5} className="text-brand-red" />
+        <label className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-dashed border-brand/30 bg-cream px-4 py-6 text-center text-sm text-[#2C2114]/80 transition hover:border-brand/60">
+          <IconCamera size={28} stroke={1.5} className="text-brand" />
           <span className="font-medium text-[#2C2114]">
             {proofFile ? proofFile.name : "Upload your payment screenshot"}
           </span>
@@ -197,13 +197,13 @@ export function OrderBuilder({
           />
         </label>
 
-        {uploadError && <p className="text-sm text-brand-red">{uploadError}</p>}
+        {uploadError && <p className="text-sm text-error">{uploadError}</p>}
 
         <button
           type="button"
           onClick={handleUploadProof}
           disabled={!proofFile || uploading}
-          className="rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
+          className="rounded-full bg-brand px-5 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
         >
           {uploading ? "Uploading…" : "Submit proof of payment"}
         </button>
@@ -229,11 +229,11 @@ export function OrderBuilder({
       />
 
       <div className="flex items-center gap-3" aria-hidden="true">
-        <div className="h-0 flex-1 border-t-2 border-dashed border-brand-red/25" />
-        <span className="text-xs font-medium uppercase tracking-wide text-brand-red/70">
+        <div className="h-0 flex-1 border-t-2 border-dashed border-brand-accent" />
+        <span className="text-xs font-medium uppercase tracking-wide text-brand-accent">
           Backup selection
         </span>
-        <div className="h-0 flex-1 border-t-2 border-dashed border-brand-red/25" />
+        <div className="h-0 flex-1 border-t-2 border-dashed border-brand-accent" />
       </div>
 
       <PlateSection
@@ -319,13 +319,13 @@ export function OrderBuilder({
             type="button"
             onClick={handlePlaceOrder}
             disabled={!canSubmit}
-            className="rounded-full bg-brand-red px-6 py-3 text-sm font-medium text-white shadow-sm disabled:opacity-40"
+            className="rounded-full bg-brand px-6 py-3 text-sm font-medium text-on-brand shadow-sm disabled:opacity-40"
           >
             {submitting ? "Placing order…" : "Place order"}
           </button>
         </div>
         {submitError && (
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-brand-red">{submitError}</p>
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-error">{submitError}</p>
         )}
       </div>
     </div>

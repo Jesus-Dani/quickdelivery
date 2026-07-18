@@ -43,13 +43,13 @@ export function SettingsForm({ initialValue }: { initialValue: string }) {
         placeholder={"e.g.\nAccount name: ...\nAccount number: ...\nBank: ..."}
         className="rounded-xl border border-zinc-300 px-3 py-2 text-sm"
       />
-      {error && <p className="text-sm text-brand-red">{error}</p>}
+      {error && <p className="text-sm text-error">{error}</p>}
       {saved && <p className="text-sm text-success">Saved.</p>}
       <button
         type="button"
         disabled={saving}
         onClick={handleSave}
-        className="self-start rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
+        className="self-start rounded-full bg-brand px-5 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
       >
         {saving ? "Saving…" : "Save"}
       </button>

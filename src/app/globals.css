@@ -17,14 +17,20 @@
   --font-heading: var(--font-fredoka);
 }
 
-/* Red & cream brand palette — exact values from
-   UI_VISUAL_DESIGN_DIRECTION.md Section 2. Defined once here so every
-   component references these tokens instead of hardcoding hex values. */
+/* Brand palette. Defined once here so every component references these
+   tokens instead of hardcoding hex values.
+   --color-brand / --color-brand-accent / --color-on-brand replaced the
+   original red-and-cream direction's dominant/accent red on request — the
+   error/warning tokens stay their own red so validation and failure
+   messages don't read as an odd blue, per UI_VISUAL_DESIGN_DIRECTION.md
+   Section 10 (error states need a distinct treatment from the primary
+   accent color). */
 @theme {
   --color-cream: #fbf3de;
-  --color-brand-red: #993c1d;
-  --color-brand-red-bright: #d85a30;
-  --color-brand-red-tint: #faece7;
+  --color-brand: #13486a;
+  --color-brand-accent: #5ba8d9;
+  --color-on-brand: #f2fafc;
+  --color-error: #993c1d;
   --color-brand-amber: #ef9f27;
   --color-brand-amber-soft: #faeeda;
   --color-brand-amber-text: #633806;

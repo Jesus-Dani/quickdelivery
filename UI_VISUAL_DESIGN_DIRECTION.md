@@ -1,12 +1,12 @@
-# QuickDelivery — Visual Design Direction (Red & Cream)
+# QuickDelivery — Visual Design Direction (Blue & Cream)
 
 Read this alongside `CLAUDE_CODE_BUILD_PROMPT.md`, `PRD_Campus_Food_Delivery.md`, and `TRD_Campus_Food_Delivery.md`. This document is the detailed visual specification for the build — treat it as binding unless something here would conflict with a functional or security requirement in the TRD, in which case the TRD wins and the conflict should be flagged rather than silently resolved.
 
-The single most important instruction in this document: **do not produce a generic, sterile "AI-generated SaaS" look.** No stark white backgrounds, no default blue/gray corporate palette, no uniform small border-radius, no dry admin-panel aesthetic leaking into the customer-facing site. This has to feel vibrant, warm, and appetizing.
+The single most important instruction in this document: **do not produce a generic, sterile "AI-generated SaaS" look.** No stark white backgrounds, no uniform small border-radius, no dry admin-panel aesthetic leaking into the customer-facing site. This has to feel vibrant, warm, and appetizing — the brand color moved from red to blue on request, but the warmth still comes from the cream base, generous rounding, and photo-forward cards, not from the accent hue.
 
-## 1. Why red and cream
+## 1. Why blue and cream
 
-The direction is inspired by Chowdeck (a Nigerian food delivery app) for its food-forward energy and warmth, without reusing their literal brand colors. Red carries appetite and urgency associations that suit a food brand; cream keeps it from feeling aggressive or overly loud. Green is deliberately not the brand color here — it's reserved exclusively as a semantic success color (see Section 5), so when it does appear, it means something specific rather than competing with red for attention.
+The original direction was red-and-cream (inspired by Chowdeck, a Nigerian food delivery app, for its food-forward energy). The dominant color was later changed to a deep blue (`#13486A`) on explicit request. Cream stays as the base for the same reason it always did — it keeps the page from feeling stark or corporate. Green is still not the brand color — it's reserved exclusively as a semantic success color (see Section 6), so when it does appear, it means something specific rather than competing with the brand color for attention. Error/warning states also deliberately kept their own red tone (Section 2) rather than following the brand color to blue, so a validation error doesn't read as an odd blue message.
 
 ## 2. Color palette (explicit values)
 
@@ -15,9 +15,10 @@ Use these exact values as the starting palette — don't leave color selection t
 | Role | Light mode | Dark mode | Use |
 |---|---|---|---|
 | Page background (customer site) | `#FBF3DE` | `#241F14` | Cream base — never stark white |
-| Primary red (strong) | `#993C1D` | `#F0997B` | Primary buttons, header bar, key CTAs — white text on the light-mode value |
-| Primary red (bright accent) | `#D85A30` | `#F0997B` | Smaller accents, tags, highlights |
-| Red tint (backgrounds for badges) | `#FAECE7` | `#4A1B0C` | Badge/pill backgrounds paired with the strong red as text |
+| Brand (dominant) | `#13486A` | `#5BA8D9` | Primary buttons, header bar, key CTAs — pairs with the on-brand text color below |
+| Brand (accent) | `#5BA8D9` | `#5BA8D9` | Smaller accents, tags, dividers, highlights |
+| Text on brand | `#F2FAFC` | `#F2FAFC` | Text/icons placed directly on a brand or brand-accent background (header copy, button labels) |
+| Error / warning text | `#993C1D` | `#F0997B` | Validation errors, failed loads — deliberately not the brand color, so failures don't read as blue |
 | Secondary amber | `#EF9F27` | `#EF9F27` | Secondary highlights, "needs more" state in the match indicator |
 | Amber tint (backgrounds) | `#FAEEDA` | `#412402` | Amber badge/pill backgrounds, paired with `#633806` (light) / `#FAEEDA` (dark) text |
 | Success green (semantic only) | `#3B6D11` text on `#EAF3DE` bg | `#97C459` text on `#173404` bg | Only the backup-match "matched" pill and order-confirmation moments — nowhere else |
@@ -34,10 +35,10 @@ Do not leave this to the framework default — a default Next.js project ships w
 
 ## 4. Shape and component language
 
-- **Buttons**: fully rounded (pill-shaped). Primary actions are solid red with white text; secondary actions are outline or ghost style, still pill-shaped.
+- **Buttons**: fully rounded (pill-shaped). Primary actions are solid brand blue with on-brand text; secondary actions are outline or ghost style, still pill-shaped.
 - **Cards**: generously rounded corners (16–20px), light/white background against the cream page, a subtle border rather than a drop shadow.
 - **Dividers**: dashed rather than solid where sections are separated (e.g., between the primary plate and the backup plate) — keeps the tone playful rather than clinical.
-- **Badges and status pills**: fully rounded, colored by meaning — red for primary/featured, amber for secondary/attention, green reserved for success only.
+- **Badges and status pills**: fully rounded, colored by meaning — brand blue for primary/featured, amber for secondary/attention, green reserved for success only, red reserved for errors only.
 - **Photo slots**: every cafeteria card and every menu item gets a fixed-aspect, rounded photo slot for real food photography uploaded via the CMS — this is central to the feel, not an afterthought bolted on later.
 
 ## 5. Layout and spacing system
@@ -54,13 +55,13 @@ This is what actually makes a page feel organized rather than sparse or ad hoc �
 
 ## 6. Per-screen guidance
 
-**Browse** — cream background, red header bar, cafeteria cards each with a photo slot, name, and short tag.
+**Browse** — cream background, brand blue header bar, cafeteria cards each with a photo slot, name, and short tag.
 
 **Cafeteria menu / plate builder** — primary plate section first, backup plate section immediately after, spoon quantities controlled by pill-shaped +/- steppers, running totals in bold. The match indicator is amber while mismatched ("₦X more needed") and switches to green only once the backup total equals the primary total ("Backup matches your order") — this is the one designed moment green appears, and the transition should feel like a small reward.
 
-**Checkout** — destination dropdown, a clear food total / delivery fee / grand total breakdown, a red pill-shaped "Place order" button, and a payment-proof upload styled as a friendly prompt rather than a bare file input.
+**Checkout** — destination dropdown, a clear food total / delivery fee / grand total breakdown, a brand blue pill-shaped "Place order" button, and a payment-proof upload styled as a friendly prompt rather than a bare file input.
 
-**Operator/courier dashboard** — calmer and more neutral than the customer site (it's a working tool, not a storefront), but red stays the accent color for primary actions (confirm payment, claim order, mark delivered) so it still reads as the same product rather than a bolted-on separate system.
+**Operator/courier dashboard** — calmer and more neutral than the customer site (it's a working tool, not a storefront), but the brand blue stays the accent color for primary actions (confirm payment, claim order, mark delivered) so it still reads as the same product rather than a bolted-on separate system.
 
 ## 7. Micro-interactions
 
@@ -72,7 +73,7 @@ This is what actually makes a page feel organized rather than sparse or ad hoc �
 ## 8. What to avoid
 
 - Stark white backgrounds anywhere on the customer-facing site.
-- Default blue/gray corporate color schemes.
+- Generic, flat corporate blue/gray — the brand blue (`#13486A`) is deliberately deep and paired with the warm cream base and rounded shapes, not a cold SaaS palette.
 - Sharp, minimal corners — this is a warm, appetite-forward brand, not a fintech dashboard.
 - Green used anywhere outside the one semantic success case. If green starts showing up as a general accent, that's a sign the direction has drifted.
 
@@ -86,7 +87,7 @@ These are just as much a part of "the look and feel" as the happy path, and are 
 
 - **Loading**: use soft, tinted skeleton blocks (rounded, matching the photo-slot treatment) rather than a bare spinner — a loading cafeteria grid should look like faded versions of the real cards, not a generic loading wheel.
 - **Empty states**: specific and warm, never a bare "No data found." E.g., no cafeterias currently open, or no delivery fee configured yet for a destination — say what's actually true and what the person should do next (nothing to do, or check back later).
-- **Error states**: clear and kind, never a raw exception message. Since red is already the primary brand color, error states need their own distinct treatment so they don't read as just another red button — pair error copy with a warning/error icon and a slightly different (darker/muted) red tone than the primary CTA red, so the two don't visually collide.
+- **Error states**: clear and kind, never a raw exception message. Errors use their own dedicated red tone (`#993C1D` light / `#F0997B` dark, Section 2), deliberately decoupled from the brand blue — pair error copy with a warning/error icon so failures read as a distinct, intentional treatment rather than a stray red text color.
 - **Transitions**: simple, fast fades or slides between screens (browse → cafeteria → checkout), under 250ms. No heavy full-screen page-transition animations — those slow down perceived speed, which matters more than flourish here.
 
 ## 11. Voice and content

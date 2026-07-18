@@ -74,12 +74,12 @@ export function OrderStatusLookup({ orderId }: { orderId: string }) {
         type="button"
         onClick={handleLookup}
         disabled={contact.trim().length === 0 || loading}
-        className="rounded-full bg-brand-red px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
+        className="rounded-full bg-brand px-5 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
       >
         {loading ? "Checking…" : "Check status"}
       </button>
 
-      {error && <p className="text-sm text-brand-red">{error}</p>}
+      {error && <p className="text-sm text-error">{error}</p>}
 
       {status && (
         <div className="rounded-xl bg-brand-amber-soft p-4 text-sm text-brand-amber-text">

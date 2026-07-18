@@ -16,13 +16,13 @@ export default async function CmsCafeteriaListPage() {
         <h1 className="text-lg font-bold text-black">Menu CMS</h1>
         <Link
           href="/dashboard/cms/new"
-          className="rounded-full bg-brand-red px-4 py-2 text-sm font-medium text-white"
+          className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand"
         >
           Add cafeteria
         </Link>
       </div>
 
-      {error && <p className="text-brand-red">Couldn&apos;t load cafeterias.</p>}
+      {error && <p className="text-error">Couldn&apos;t load cafeterias.</p>}
 
       <div className="flex flex-col gap-2">
         {cafeterias?.map((cafeteria) => (
