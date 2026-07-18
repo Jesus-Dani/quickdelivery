@@ -19,19 +19,12 @@ export default async function DispatchBoardPage() {
   const details = await attachOrderDetails(supabase, orders ?? []);
 
   const courierIds = [...new Set(details.map((o) => o.courierId).filter(Boolean))] as string[];
-  const orderIds = details.map((o) => o.id);
 
-  const [{ data: couriers }, { data: deliveries }] = await Promise.all([
-    courierIds.length
-      ? supabase.from("couriers").select("id, name, phone").in("id", courierIds)
-      : Promise.resolve({ data: [] as { id: string; name: string; phone: string }[] }),
-    orderIds.length
-      ? supabase.from("deliveries").select("order_id, funded_at").in("order_id", orderIds)
-      : Promise.resolve({ data: [] as { order_id: string; funded_at: string | null }[] }),
-  ]);
+  const { data: couriers } = courierIds.length
+    ? await supabase.from("couriers").select("id, name, phone").in("id", courierIds)
+    : { data: [] as { id: string; name: string; phone: string }[] };
 
   const courierById = new Map((couriers ?? []).map((c) => [c.id, c]));
-  const fundedAtByOrderId = new Map((deliveries ?? []).map((d) => [d.order_id, d.funded_at]));
 
   const grouped = STATUS_ORDER.map((status) => ({
     status,
@@ -52,7 +45,6 @@ export default async function DispatchBoardPage() {
           <div className="flex flex-col gap-2">
             {group.orders.map((order) => {
               const courier = order.courierId ? courierById.get(order.courierId) : null;
-              const fundedAt = fundedAtByOrderId.get(order.id);
               return (
                 <div
                   key={order.id}
@@ -69,13 +61,18 @@ export default async function DispatchBoardPage() {
                     {courier && (
                       <p className="text-zinc-600">
                         Courier: {courier.name} ({courier.phone})
-                        {fundedAt ? " · funded" : " · not funded"}
+                        {order.fundedAt
+                          ? " · funded"
+                          : order.fundsRequestedAt
+                            ? " · funds requested"
+                            : " · not funded"}
                       </p>
                     )}
                   </div>
-                  {order.courierId && order.status === "claimed" && !fundedAt && (
-                    <FundCourierButton orderId={order.id} />
-                  )}
+                  {order.courierId &&
+                    order.status === "claimed" &&
+                    order.fundsRequestedAt &&
+                    !order.fundedAt && <FundCourierButton orderId={order.id} />}
                 </div>
               );
             })}

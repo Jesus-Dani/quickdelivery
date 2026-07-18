@@ -95,39 +95,75 @@ export function OrderPoolCard({
 
       {role === "courier" && isMine && order.status === "claimed" && (
         <div className="flex flex-col gap-2 border-t border-zinc-200 pt-3">
-          <label className="flex items-center gap-2 text-sm text-black">
-            <input
-              type="checkbox"
-              checked={substitutionUsed}
-              onChange={(e) => setSubstitutionUsed(e.target.checked)}
-            />
-            A backup substitution was used
-          </label>
-          {substitutionUsed && (
-            <input
-              type="text"
-              placeholder="Optional note"
-              value={substitutionNote}
-              onChange={(e) => setSubstitutionNote(e.target.value)}
-              className="rounded-full border border-zinc-300 px-4 py-2 text-sm"
-            />
+          {!order.fundsRequestedAt && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() =>
+                run(() => supabase.rpc("request_funds", { p_order_id: order.id }))
+              }
+              className="self-start rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
+            >
+              Request purchase funds
+            </button>
           )}
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() =>
-              run(() =>
-                supabase.rpc("mark_order_purchased", {
-                  p_order_id: order.id,
-                  p_substitution_used: substitutionUsed,
-                  p_substitution_note: substitutionUsed ? substitutionNote || null : null,
-                })
-              )
-            }
-            className="self-start rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
-          >
-            Mark purchased
-          </button>
+
+          {order.fundsRequestedAt && !order.fundedAt && (
+            <p className="text-sm text-brand-amber-text">
+              Funds requested — waiting for the operator to send them.
+            </p>
+          )}
+
+          {order.fundedAt && !order.fundsConfirmedAt && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() =>
+                run(() => supabase.rpc("confirm_funds_received", { p_order_id: order.id }))
+              }
+              className="self-start rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
+            >
+              Confirm funds received
+            </button>
+          )}
+
+          {order.fundsConfirmedAt && (
+            <>
+              <label className="flex items-center gap-2 text-sm text-black">
+                <input
+                  type="checkbox"
+                  checked={substitutionUsed}
+                  onChange={(e) => setSubstitutionUsed(e.target.checked)}
+                />
+                A backup substitution was used
+              </label>
+              {substitutionUsed && (
+                <input
+                  type="text"
+                  placeholder="Optional note"
+                  value={substitutionNote}
+                  onChange={(e) => setSubstitutionNote(e.target.value)}
+                  className="rounded-full border border-zinc-300 px-4 py-2 text-sm"
+                />
+              )}
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() =>
+                  run(() =>
+                    supabase.rpc("mark_order_purchased", {
+                      p_order_id: order.id,
+                      p_substitution_used: substitutionUsed,
+                      p_substitution_note: substitutionUsed ? substitutionNote || null : null,
+                    })
+                  )
+                }
+                className="self-start rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
+              >
+                Mark purchased
+              </button>
+            </>
+          )}
         </div>
       )}
 

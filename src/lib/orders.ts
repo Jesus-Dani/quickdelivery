@@ -25,6 +25,9 @@ export interface OrderDetail {
   createdAt: string;
   primaryLines: OrderLineDetail[];
   backupLines: OrderLineDetail[];
+  fundsRequestedAt: string | null;
+  fundedAt: string | null;
+  fundsConfirmedAt: string | null;
 }
 
 // Batch-assembles full order detail (cafeteria/destination names + itemized
@@ -55,7 +58,7 @@ export async function attachOrderDetails(
   const cafeteriaIds = [...new Set(orders.map((o) => o.cafeteria_id))];
   const destinationIds = [...new Set(orders.map((o) => o.destination_id))];
 
-  const [{ data: cafeterias }, { data: destinations }, { data: lines }] =
+  const [{ data: cafeterias }, { data: destinations }, { data: lines }, { data: deliveries }] =
     await Promise.all([
       supabase.from("cafeterias").select("id, name").in("id", cafeteriaIds),
       supabase
@@ -65,6 +68,10 @@ export async function attachOrderDetails(
       supabase
         .from("order_lines")
         .select("order_id, menu_item_id, spoon_count, line_total, is_backup")
+        .in("order_id", orderIds),
+      supabase
+        .from("deliveries")
+        .select("order_id, funds_requested_at, funded_at, funds_confirmed_at")
         .in("order_id", orderIds),
     ]);
 
@@ -77,6 +84,7 @@ export async function attachOrderDetails(
   const cafeteriaNameById = new Map((cafeterias ?? []).map((c) => [c.id, c.name]));
   const destinationNameById = new Map((destinations ?? []).map((d) => [d.id, d.name]));
   const menuItemNameById = new Map((menuItems ?? []).map((m) => [m.id, m.name]));
+  const deliveryByOrderId = new Map((deliveries ?? []).map((d) => [d.order_id, d]));
 
   const linesByOrderId = new Map<string, OrderLineDetail[]>();
   const backupLinesByOrderId = new Map<string, OrderLineDetail[]>();
@@ -108,5 +116,8 @@ export async function attachOrderDetails(
     createdAt: order.created_at,
     primaryLines: linesByOrderId.get(order.id) ?? [],
     backupLines: backupLinesByOrderId.get(order.id) ?? [],
+    fundsRequestedAt: deliveryByOrderId.get(order.id)?.funds_requested_at ?? null,
+    fundedAt: deliveryByOrderId.get(order.id)?.funded_at ?? null,
+    fundsConfirmedAt: deliveryByOrderId.get(order.id)?.funds_confirmed_at ?? null,
   }));
 }

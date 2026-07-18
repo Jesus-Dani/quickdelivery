@@ -170,8 +170,10 @@ export interface Database {
           order_id: string;
           courier_id: string;
           claimed_at: string;
+          funds_requested_at: string | null;
           funded_at: string | null;
           funded_by: string | null;
+          funds_confirmed_at: string | null;
           purchased_at: string | null;
           delivered_at: string | null;
         };
@@ -261,6 +263,14 @@ export interface Database {
         Returns: void;
       };
       fund_courier: {
+        Args: { p_order_id: string };
+        Returns: void;
+      };
+      request_funds: {
+        Args: { p_order_id: string };
+        Returns: void;
+      };
+      confirm_funds_received: {
         Args: { p_order_id: string };
         Returns: void;
       };
