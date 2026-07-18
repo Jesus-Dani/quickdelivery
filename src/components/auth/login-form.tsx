@@ -54,9 +54,14 @@ export function LoginForm() {
     }
 
     // signUp() only returns a live session when email confirmation is off
-    // for this project. With it on (the current setting), the account is
-    // created but there's no session yet — redirecting to /dashboard here
-    // would just bounce straight back to /login with no explanation.
+    // for this project. With it on (the current setting), redirecting to
+    // /dashboard here would just bounce straight back to /login with no
+    // explanation, so we show a message instead — worded to cover both
+    // real cases, since Supabase deliberately returns this same
+    // no-error/no-session response whether the account is brand new
+    // (a confirmation email is on its way) or the email already has an
+    // account (nothing was sent — anti-enumeration behavior, the client
+    // can't tell these apart).
     if (!data.session) {
       setConfirmationPending(true);
       return;
@@ -154,8 +159,19 @@ export function LoginForm() {
           {error && <p className="text-sm text-error">{error}</p>}
           {confirmationPending && (
             <p className="text-sm text-success">
-              Account created — check {email} for a confirmation link, then
-              come back and sign in.
+              If {email} is new, check your inbox for a confirmation link
+              before signing in. Already have an account with this email?{" "}
+              <button
+                type="button"
+                onClick={() => {
+                  setTab("signin");
+                  setConfirmationPending(false);
+                }}
+                className="underline"
+              >
+                Sign in instead
+              </button>
+              .
             </p>
           )}
 
