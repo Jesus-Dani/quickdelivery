@@ -264,6 +264,48 @@ export interface Database {
         Args: { p_order_id: string };
         Returns: void;
       };
+      menu_manager_verify_passcode: {
+        Args: { p_passcode: string };
+        Returns: boolean;
+      };
+      menu_manager_list_cafeterias: {
+        Args: { p_passcode: string };
+        Returns: Database["public"]["Tables"]["cafeterias"]["Row"][];
+      };
+      menu_manager_list_items: {
+        Args: { p_passcode: string; p_cafeteria_id: string };
+        Returns: Database["public"]["Tables"]["menu_items"]["Row"][];
+      };
+      menu_manager_upsert_cafeteria: {
+        Args: {
+          p_passcode: string;
+          p_id: string | null;
+          p_name: string;
+          p_photo_url: string | null;
+          p_active?: boolean;
+        };
+        Returns: string;
+      };
+      menu_manager_upsert_item: {
+        Args: {
+          p_passcode: string;
+          p_id: string | null;
+          p_cafeteria_id: string;
+          p_name: string;
+          p_price: number;
+          p_photo_url: string | null;
+          p_active?: boolean;
+        };
+        Returns: string;
+      };
+      menu_manager_upsert_fees: {
+        Args: {
+          p_passcode: string;
+          p_cafeteria_id: string;
+          p_fees: { destination_id: string; fee: number }[];
+        };
+        Returns: void;
+      };
     };
   };
 }
