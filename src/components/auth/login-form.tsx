@@ -19,7 +19,9 @@ export function LoginForm() {
   const [operatorCode, setOperatorCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [confirmationPending, setConfirmationPending] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState<
+    "courier" | "operator" | null
+  >(null);
 
   async function handleSignIn() {
     setLoading(true);
@@ -43,27 +45,16 @@ export function LoginForm() {
   ) {
     setLoading(true);
     setError(null);
-    setConfirmationPending(false);
-    const { data, error: signUpError } = await supabase.auth.signUp({
+    setSignupSuccess(null);
+    const { error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: { role, name, ...extraData },
-        // Without this, Supabase falls back to the project's static
-        // "Site URL" dashboard setting for the confirmation-email link —
-        // which is easy to leave pointed at localhost after moving from
-        // local dev to production, sending real users to a URL that
-        // doesn't exist on their device. Using the origin the signup
-        // actually happened on makes this correct on localhost, Netlify
-        // deploy previews, and production alike. The target still has to
-        // be in Supabase's Redirect URLs allow-list (a security
-        // requirement on their end), so this doesn't work by itself if
-        // that list doesn't include this origin.
-        emailRedirectTo: `${window.location.origin}/login`,
       },
     });
-    setLoading(false);
     if (signUpError) {
+      setLoading(false);
       // The operator_code check in handle_new_user() rejects a bad code by
       // raising a Postgres exception — but GoTrue wraps every trigger
       // failure into the same generic, opaque "Database error saving new
@@ -80,22 +71,14 @@ export function LoginForm() {
       return;
     }
 
-    // signUp() only returns a live session when email confirmation is off
-    // for this project. With it on (the current setting), redirecting to
-    // /dashboard here would just bounce straight back to /login with no
-    // explanation, so we show a message instead — worded to cover both
-    // real cases, since Supabase deliberately returns this same
-    // no-error/no-session response whether the account is brand new
-    // (a confirmation email is on its way) or the email already has an
-    // account (nothing was sent — anti-enumeration behavior, the client
-    // can't tell these apart).
-    if (!data.session) {
-      setConfirmationPending(true);
-      return;
-    }
-
-    router.push("/dashboard");
-    router.refresh();
+    // Email confirmation is off for this project, so signUp() already
+    // leaves the browser holding a live session for the new account. Sign
+    // it back out so account creation and signing in stay two explicit
+    // steps — the success message below is what actually takes them to
+    // the dashboard, via the normal sign-in form.
+    await supabase.auth.signOut();
+    setLoading(false);
+    setSignupSuccess(role);
   }
 
   return (
@@ -212,19 +195,19 @@ export function LoginForm() {
           </label>
 
           {error && <p className="text-sm text-error">{error}</p>}
-          {confirmationPending && (
+          {signupSuccess && (
             <p className="text-sm text-success">
-              If {email} is new, check your inbox for a confirmation link
-              before signing in. Already have an account with this email?{" "}
+              {signupSuccess === "operator" ? "Operator" : "Courier"} account
+              created.{" "}
               <button
                 type="button"
                 onClick={() => {
                   setTab("signin");
-                  setConfirmationPending(false);
+                  setSignupSuccess(null);
                 }}
                 className="underline"
               >
-                Sign in instead
+                Click here to sign in
               </button>
               .
             </p>
