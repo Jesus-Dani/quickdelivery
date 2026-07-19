@@ -224,7 +224,7 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-8 px-6 py-10">
+    <div className="mx-auto flex w-full min-w-0 max-w-2xl flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-10">
       <div>
         <h1 className="text-2xl font-bold text-[#2C2114]">Menu manager</h1>
         <p className="mt-1 text-sm text-[#2C2114]/70">
@@ -232,16 +232,18 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
         </p>
       </div>
 
-      <section className="rounded-2xl border border-black/5 bg-white p-5">
+      <section className="rounded-2xl border border-black/5 bg-white p-4 sm:p-5">
         <h2 className="mb-3 font-bold text-[#2C2114]">Add a cafeteria</h2>
-        <div className="flex items-center gap-4">
-          <PhotoUpload currentUrl={newPhoto} onUploaded={setNewPhoto} />
-          <input
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            placeholder="Cafeteria name"
-            className="flex-1 rounded-full border border-zinc-300 px-4 py-2"
-          />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <div className="flex items-center gap-3 sm:contents">
+            <PhotoUpload currentUrl={newPhoto} onUploaded={setNewPhoto} />
+            <input
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              placeholder="Cafeteria name"
+              className="min-w-0 flex-1 rounded-full border border-zinc-300 px-4 py-2"
+            />
+          </div>
           <button
             type="button"
             disabled={creating}
@@ -254,7 +256,7 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
         {createError && <p className="mt-2 text-sm text-error">{createError}</p>}
       </section>
 
-      <section className="rounded-2xl border border-black/5 bg-white p-5">
+      <section className="rounded-2xl border border-black/5 bg-white p-4 sm:p-5">
         <h2 className="mb-3 font-bold text-[#2C2114]">Cafeterias</h2>
         {loadingCafeterias ? (
           <p className="text-sm text-[#2C2114]/60">Loading…</p>
@@ -287,29 +289,31 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
 
       {selected && (
         <>
-          <section className="flex items-center gap-4 rounded-2xl border border-black/5 bg-white p-5">
-            <PhotoUpload
-              currentUrl={selected.photo_url}
-              onUploaded={(url) => updateSelectedCafeteria({ photo_url: url })}
-            />
-            <div className="flex flex-1 flex-col gap-2">
-              <input
-                defaultValue={selected.name}
-                key={selected.id}
-                onBlur={(e) => {
-                  const value = e.target.value.trim();
-                  if (value && value !== selected.name) updateSelectedCafeteria({ name: value });
-                }}
-                className="rounded-full border border-zinc-300 px-4 py-2 text-lg font-medium"
+          <section className="flex flex-col items-start gap-3 rounded-2xl border border-black/5 bg-white p-4 sm:flex-row sm:items-center sm:gap-4 sm:p-5">
+            <div className="flex w-full items-center gap-3 sm:contents">
+              <PhotoUpload
+                currentUrl={selected.photo_url}
+                onUploaded={(url) => updateSelectedCafeteria({ photo_url: url })}
               />
-              <label className="flex items-center gap-2 text-sm text-zinc-600">
+              <div className="flex min-w-0 flex-1 flex-col gap-2">
                 <input
-                  type="checkbox"
-                  checked={selected.active}
-                  onChange={(e) => updateSelectedCafeteria({ active: e.target.checked })}
+                  defaultValue={selected.name}
+                  key={selected.id}
+                  onBlur={(e) => {
+                    const value = e.target.value.trim();
+                    if (value && value !== selected.name) updateSelectedCafeteria({ name: value });
+                  }}
+                  className="min-w-0 rounded-full border border-zinc-300 px-4 py-2 text-lg font-medium"
                 />
-                Active (visible to customers)
-              </label>
+                <label className="flex items-center gap-2 text-sm text-zinc-600">
+                  <input
+                    type="checkbox"
+                    checked={selected.active}
+                    onChange={(e) => updateSelectedCafeteria({ active: e.target.checked })}
+                  />
+                  Active (visible to customers)
+                </label>
+              </div>
             </div>
           </section>
 
@@ -317,77 +321,88 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
             <p className="text-sm text-[#2C2114]/60">Loading…</p>
           ) : (
             <>
-              <section className="rounded-2xl border border-black/5 bg-white p-5">
+              <section className="rounded-2xl border border-black/5 bg-white p-4 sm:p-5">
                 <h2 className="mb-3 font-bold text-[#2C2114]">Menu items</h2>
                 <div className="flex flex-col divide-y divide-black/5">
                   {items.map((item) => (
-                    <div key={item.id} className="flex items-center gap-3 py-3">
-                      <PhotoUpload
-                        currentUrl={item.photo_url}
-                        onUploaded={(url) => updateItem(item, { photo_url: url })}
-                      />
-                      <input
-                        defaultValue={item.name}
-                        onBlur={(e) => {
-                          const value = e.target.value.trim();
-                          if (value && value !== item.name) updateItem(item, { name: value });
-                        }}
-                        className="flex-1 rounded-full border border-zinc-300 px-3 py-1.5"
-                      />
-                      <input
-                        type="number"
-                        min={0}
-                        step="0.01"
-                        defaultValue={item.price_per_spoon}
-                        onBlur={(e) => {
-                          const value = Number(e.target.value);
-                          if (value > 0 && value !== item.price_per_spoon)
-                            updateItem(item, { price_per_spoon: value });
-                        }}
-                        className="w-24 rounded-full border border-zinc-300 px-3 py-1.5"
-                      />
-                      <label className="flex items-center gap-1 text-xs text-zinc-500">
-                        <input
-                          type="checkbox"
-                          checked={item.active}
-                          onChange={(e) => updateItem(item, { active: e.target.checked })}
+                    <div
+                      key={item.id}
+                      className="flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:gap-3"
+                    >
+                      <div className="flex items-center gap-3 sm:contents">
+                        <PhotoUpload
+                          currentUrl={item.photo_url}
+                          onUploaded={(url) => updateItem(item, { photo_url: url })}
                         />
-                        active
-                      </label>
+                        <input
+                          defaultValue={item.name}
+                          onBlur={(e) => {
+                            const value = e.target.value.trim();
+                            if (value && value !== item.name) updateItem(item, { name: value });
+                          }}
+                          className="min-w-0 flex-1 rounded-full border border-zinc-300 px-3 py-1.5"
+                        />
+                      </div>
+                      <div className="flex items-center gap-3 sm:contents">
+                        <input
+                          type="number"
+                          min={0}
+                          step="0.01"
+                          defaultValue={item.price_per_spoon}
+                          onBlur={(e) => {
+                            const value = Number(e.target.value);
+                            if (value > 0 && value !== item.price_per_spoon)
+                              updateItem(item, { price_per_spoon: value });
+                          }}
+                          className="w-24 shrink-0 rounded-full border border-zinc-300 px-3 py-1.5"
+                        />
+                        <label className="flex shrink-0 items-center gap-1 text-xs text-zinc-500">
+                          <input
+                            type="checkbox"
+                            checked={item.active}
+                            onChange={(e) => updateItem(item, { active: e.target.checked })}
+                          />
+                          active
+                        </label>
+                      </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-3 flex items-center gap-3 border-t border-black/5 pt-3">
-                  <PhotoUpload currentUrl={newItemPhoto} onUploaded={setNewItemPhoto} label="new item" />
-                  <input
-                    value={newItemName}
-                    onChange={(e) => setNewItemName(e.target.value)}
-                    placeholder="Item name"
-                    className="flex-1 rounded-full border border-zinc-300 px-3 py-1.5"
-                  />
-                  <input
-                    type="number"
-                    min={0}
-                    step="0.01"
-                    value={newItemPrice}
-                    onChange={(e) => setNewItemPrice(e.target.value)}
-                    placeholder="Price/spoon"
-                    className="w-28 rounded-full border border-zinc-300 px-3 py-1.5"
-                  />
-                  <button
-                    type="button"
-                    disabled={addingItem}
-                    onClick={handleAddItem}
-                    className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
-                  >
-                    Add item
-                  </button>
+                <div className="mt-3 flex flex-col gap-2 border-t border-black/5 pt-3 sm:flex-row sm:items-center sm:gap-3">
+                  <div className="flex items-center gap-3 sm:contents">
+                    <PhotoUpload currentUrl={newItemPhoto} onUploaded={setNewItemPhoto} label="new item" />
+                    <input
+                      value={newItemName}
+                      onChange={(e) => setNewItemName(e.target.value)}
+                      placeholder="Item name"
+                      className="min-w-0 flex-1 rounded-full border border-zinc-300 px-3 py-1.5"
+                    />
+                  </div>
+                  <div className="flex items-center gap-3 sm:contents">
+                    <input
+                      type="number"
+                      min={0}
+                      step="0.01"
+                      value={newItemPrice}
+                      onChange={(e) => setNewItemPrice(e.target.value)}
+                      placeholder="Price/spoon"
+                      className="w-28 shrink-0 rounded-full border border-zinc-300 px-3 py-1.5"
+                    />
+                    <button
+                      type="button"
+                      disabled={addingItem}
+                      onClick={handleAddItem}
+                      className="shrink-0 rounded-full bg-brand px-4 py-2 text-sm font-medium text-on-brand disabled:opacity-40"
+                    >
+                      Add item
+                    </button>
+                  </div>
                 </div>
                 {addItemError && <p className="mt-2 text-sm text-error">{addItemError}</p>}
               </section>
 
-              <section className="rounded-2xl border border-black/5 bg-white p-5">
+              <section className="rounded-2xl border border-black/5 bg-white p-4 sm:p-5">
                 <h2 className="mb-1 font-bold text-[#2C2114]">Delivery fees</h2>
                 <p className="mb-3 text-sm text-[#2C2114]/70">
                   Leave a destination blank if this cafeteria doesn&apos;t deliver there.
