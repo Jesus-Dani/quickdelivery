@@ -316,6 +316,10 @@ export interface Database {
         };
         Returns: void;
       };
+      menu_manager_delete_cafeteria: {
+        Args: { p_passcode: string; p_id: string };
+        Returns: void;
+      };
     };
   };
 }

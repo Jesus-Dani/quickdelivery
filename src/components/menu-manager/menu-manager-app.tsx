@@ -53,6 +53,10 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
   const [feeSaved, setFeeSaved] = useState(false);
   const [feeError, setFeeError] = useState<string | null>(null);
 
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+
   const selected = cafeterias.find((c) => c.id === selectedId) ?? null;
 
   async function loadCafeterias() {
@@ -77,6 +81,8 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
     setLoadingDetail(true);
     setFeeSaved(false);
     setFeeError(null);
+    setConfirmingDelete(false);
+    setDeleteError(null);
 
     const [{ data: itemRows }, { data: feeRows }] = await Promise.all([
       supabase.rpc("menu_manager_list_items", { p_passcode: passcode, p_cafeteria_id: id }),
@@ -132,6 +138,29 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
       p_active: next.active,
     });
     setCafeterias((prev) => prev.map((c) => (c.id === selected.id ? { ...c, ...fields } : c)));
+  }
+
+  async function handleDeleteCafeteria() {
+    if (!selected) return;
+    setDeleting(true);
+    setDeleteError(null);
+
+    const { error } = await supabase.rpc("menu_manager_delete_cafeteria", {
+      p_passcode: passcode,
+      p_id: selected.id,
+    });
+
+    setDeleting(false);
+
+    if (error) {
+      setDeleteError(error.message);
+      return;
+    }
+
+    setConfirmingDelete(false);
+    setSelectedId(null);
+    setItems([]);
+    await loadCafeterias();
   }
 
   async function updateItem(item: ItemRow, fields: Partial<Omit<ItemRow, "id" | "cafeteria_id">>) {
@@ -315,6 +344,45 @@ export function MenuManagerApp({ passcode }: { passcode: string }) {
                 </label>
               </div>
             </div>
+          </section>
+
+          <section className="rounded-2xl border border-error/20 bg-white p-4 sm:p-5">
+            {!confirmingDelete ? (
+              <button
+                type="button"
+                onClick={() => setConfirmingDelete(true)}
+                className="rounded-full border border-error/40 px-4 py-2 text-sm font-medium text-error"
+              >
+                Delete cafeteria
+              </button>
+            ) : (
+              <div className="flex flex-col gap-3">
+                <p className="text-sm text-[#2C2114]">
+                  Delete <strong>{selected.name}</strong> and its{" "}
+                  {items.length} menu item{items.length === 1 ? "" : "s"}{" "}
+                  and delivery fees? This can&apos;t be undone.
+                </p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    disabled={deleting}
+                    onClick={handleDeleteCafeteria}
+                    className="rounded-full bg-error px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+                  >
+                    {deleting ? "Deleting…" : "Yes, delete it"}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={deleting}
+                    onClick={() => setConfirmingDelete(false)}
+                    className="rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-600"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                {deleteError && <p className="text-sm text-error">{deleteError}</p>}
+              </div>
+            )}
           </section>
 
           {loadingDetail ? (
