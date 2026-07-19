@@ -49,6 +49,17 @@ export function LoginForm() {
       password,
       options: {
         data: { role, name, ...extraData },
+        // Without this, Supabase falls back to the project's static
+        // "Site URL" dashboard setting for the confirmation-email link —
+        // which is easy to leave pointed at localhost after moving from
+        // local dev to production, sending real users to a URL that
+        // doesn't exist on their device. Using the origin the signup
+        // actually happened on makes this correct on localhost, Netlify
+        // deploy previews, and production alike. The target still has to
+        // be in Supabase's Redirect URLs allow-list (a security
+        // requirement on their end), so this doesn't work by itself if
+        // that list doesn't include this origin.
+        emailRedirectTo: `${window.location.origin}/login`,
       },
     });
     setLoading(false);
